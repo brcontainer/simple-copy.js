@@ -1,12 +1,12 @@
 /*
- * SimpleCopy.js 0.1.0
+ * SimpleCopy.js 0.1.1
  *
  * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
 
-(function (w, d, u) {
+(function (w, d) {
     "use strict";
 
     var m = w.Element && w.Element.prototype,
