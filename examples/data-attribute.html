@@ -25,12 +25,17 @@
 
     <div class="foobar">
         <button data-simplecopy-target=".foo">Copy from .foo</button>
-        <button data-simplecopy-target="body > .bar">Copy from .bar</button>
-        <button data-simplecopy-target="[class~=baz]">Copy from .baz</button>
+        <button data-simplecopy-target="body > .bar">Copy from body > .bar</button>
+        <button data-simplecopy-target="[class~=baz] textarea">Copy from [class~=baz] textarea</button>
+
+        <button data-simplecopy-target=".foo" data-simplecopy-text="true">Copy from .foo (without HTML format)</button>
+        <button data-simplecopy-target="body > .bar" data-simplecopy-text="true">Copy from .bar (without HTML format)</button>
+
+        <br>
 
         <button data-simplecopy-target=".foo" data-simplecopy-select="true">Select from .foo</button>
-        <button data-simplecopy-target="body > .bar" data-simplecopy-select="true">Select from .bar</button>
-        <button data-simplecopy-target="[class~=baz] textarea" data-simplecopy-select="true">Select from .baz</button>
+        <button data-simplecopy-target="body > .bar" data-simplecopy-select="true">Select from body > .bar</button>
+        <button data-simplecopy-target="[class~=baz] textarea" data-simplecopy-select="true">Select from [class~=baz] textarea</button>
     </div>
 
     <link rel="stylesheet" type="text/css" href="example.css">

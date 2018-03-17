@@ -1,5 +1,5 @@
 /*
- * SimpleCopy.js 0.0.1
+ * SimpleCopy.js 0.1.0
  *
  * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -60,8 +60,8 @@
 
         var targetQuery, target, select, el = e.target;
 
-        if (el.matches('[' + prefix + 'text]')) {
-            return copyText(el.getAttribute(prefix + 'text'));
+        if (el.matches('[' + prefix + 'data]')) {
+            return copyText(el.getAttribute(prefix + 'data'));
         }
 
         if (!el.matches('[' + prefix + 'target]')) return;
@@ -71,6 +71,8 @@
         target = d.querySelector(targetQuery);
 
         if (!target) return false;
+
+        if (el.matches('[' + prefix + 'text="true"]')) return copyText(target.textContent);
 
         choose(target, select === "true" ? false : true);
     }
@@ -96,7 +98,7 @@
         "copy": function (target) {
             choose(target, true);
         },
-        "text": copyText
+        "data": copyText
     };
 
     if (!m || m.matches) return;
