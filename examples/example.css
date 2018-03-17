@@ -1,0 +1,44 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+.foo, .bar, .baz, .foobar {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.foo {
+    font-size: 11pt;
+}
+.bar {
+    font-size: 13pt;
+}
+.baz {
+    font-size: 16pt;
+}
+
+button {
+    background-color: #007bff;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    padding: 10px;
+    margin: 0 2px;
+    color: #fff;
+    cursor: pointer;
+}
+
+textarea {
+    width: 98%;
+}
+
+button:focus, button:active {
+    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5);
+    background-color: #0069d9;
+    border-color: #001123;
+}
+
+*[data-simplecopy-text!=""] {
+    font-size: 200%;
+}

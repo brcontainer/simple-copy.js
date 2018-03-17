@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>simplecopy.js DOM</title>
+</head>
+<body>
+    <div class="foobar">
+        <button class="copy-btn">Copy text from event</button>
+        <button data-simplecopy-text="Hello, world!">Copy text from data attribute</button>
+    </div>
+
+    <link rel="stylesheet" type="text/css" href="example.css">
+    <script type="text/javascript" src="../simplecopy.js"></script>
+    <script type="text/javascript">
+    (function (d) {
+        d.querySelector(".copy-btn").onclick = function () {
+            SimpleCopy.text("Hello, world!");
+        };
+    })(document);
+    </script>
+</body>
+</html>

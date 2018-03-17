@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>simplecopy.js DOM</title>
+</head>
+<body>
+    <div class="foo">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ullamcorper ex et tempus placerat.
+    Nulla quis tortor dui. Curabitur finibus magna a tortor fermentum, eu hendrerit lorem congue.
+    Nam non enim ac eros ultricies ullamcorper. Sed porttitor ligula ex, iaculis dictum leo blandit sed.
+    Maecenas eu vestibulum felis, eu <strong>clipboard</strong> urna. Duis varius mi libero, sed vulputate lorem laoreet et.
+    Sed eleifend iaculis congue. Sed non mattis nulla. Suspendisse dignissim neque urna, quis porta metus molestie tristique.
+    Integer id nulla tortor. Curabitur odio metus, aliquet ac malesuada <i>copy</i>, porta pretium risus.
+    Aenean sit amet lobortis quam, sit amet congue sapien.
+    Pellentesque habitant morbi tristique senectus et netus et <s>Flash</s> fames ac turpis egestas.
+    Fusce pulvinar fermentum ligula scelerisque interdum.
+    </div>
+
+    <div class="foobar">
+        <button class="copy-btn">Copy</button>
+        <button class="select-btn">Select</button>
+    </div>
+
+    <link rel="stylesheet" type="text/css" href="example.css">
+    <script type="text/javascript" src="../simplecopy.js"></script>
+    <script type="text/javascript">
+    (function (d) {
+        d.querySelector(".copy-btn").onclick = function () {
+            SimpleCopy.copy(d.querySelector(".foo"));
+        };
+
+        d.querySelector(".select-btn").onclick = function () {
+            SimpleCopy.select(d.querySelector(".foo"));
+        };
+    })(document);
+    </script>
+</body>
+</html>
