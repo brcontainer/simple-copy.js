@@ -1,0 +1,1 @@
+# simplecopy.js
