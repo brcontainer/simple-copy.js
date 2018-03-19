@@ -15,13 +15,13 @@ Include lib
 Copying content from a element using selector:
 
 ```javascript
-SimpleCopy.copy("{selector}");
+SimpleCopy.copy("<selector>");
 ```
 
 Copying text from a element using selector:
 
 ```javascript
-SimpleCopy.copy("{selector}", { "text": true });
+SimpleCopy.copy("<selector>", { "text": true });
 ```
 
 Copying content from a element:
@@ -41,7 +41,7 @@ SimpleCopy.copy(element, { "text": true });
 Select text in a element using selector:
 
 ```javascript
-SimpleCopy.select("{selector}");
+SimpleCopy.select("<selector>");
 ```
 
 Select text in a element:
@@ -60,19 +60,19 @@ SimpleCopy.data("Hello, world!");
 Copy content from element defined in data attributes:
 
 ```html
-<button data-simplecopy-target="{selector}">Copy</button>
+<button data-simplecopy-target="<selector>">Copy</button>
 ```
 
 Select content from element defined in data attributes:
 
 ```html
-<button data-simplecopy-target="{selector}" data-simplecopy-select="true">Select text</button>
+<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Select text</button>
 ```
 
 Copy html content without format:
 
 ```html
-<button data-simplecopy-target="{selector}" data-simplecopy-text="true">Copy</button>
+<button data-simplecopy-target="<selector>" data-simplecopy-text="true">Copy</button>
 ```
 
 Set text in clipboard by data attribute:
@@ -86,7 +86,7 @@ Set text in clipboard by data attribute:
 Using API for copy multiple values in `<select multiple></select>`:
 
 ```javascript
-SimpleCopy.copy("{selector}", {
+SimpleCopy.copy("<selector>", {
     "text": true,
     "multiple": ","
 });
@@ -95,13 +95,15 @@ SimpleCopy.copy("{selector}", {
 In example comma is used to join multiple values, returning `foo,bar,baz`, if change to:
 
 ```javascript
-SimpleCopy.copy("{selector}", {
+SimpleCopy.copy("<selector>", {
     "text": true,
     "multiple": "|"
 });
+```
 
 You can use data attribute for copy multiple values in `<select multiple></select>`, example:
 
+```html
 <select multiple class="foobar">
     <option value="foo">Foo</option>
     <option value="Bar" multiple>Bar</option>
@@ -114,3 +116,4 @@ You can use data attribute for copy multiple values in `<select multiple></selec
     data-simplecopy-text="true"
     data-simplecopy-multiple=","
 >Copy</button>
+```
