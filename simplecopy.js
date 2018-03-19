@@ -1,5 +1,5 @@
 /*
- * SimpleCopy.js 0.1.1
+ * SimpleCopy.js 0.2.0
  *
  * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -10,14 +10,35 @@
     "use strict";
 
     var m = w.Element && w.Element.prototype,
-        isField = /^(input|textarea)$/i,
         prefix = "data-simplecopy-",
+        isInput = /^(input|textarea)$/i,
         tmp;
+
+    function copyDOMText(target, multiple)
+    {
+        var result = '';
+
+        if (typeof target.labels === "object") {
+            if (target.nodeName === "SELECT" && target.multiple && multiple) {
+                for (var i = 0, values = [], els = target.options, j = els.length; i < j; i++) {
+                    if (els[i].selected) values.push(els[i].value);
+                }
+
+                result = values.join(multiple);
+            } else {
+                result = target.value;
+            }
+        } else {
+            result = target.textContent;
+        }
+
+        result && copyText(result);
+    }
 
     function selectDOM(target, copy)
     {
-        var range = d.createRange(),
-            selection = w.getSelection();
+        var selection = w.getSelection(),
+            range = d.createRange();
 
         range.selectNode(target);
 
@@ -33,7 +54,7 @@
     function selectField(target, copy)
     {
         target.focus();
-        target.select();
+        target.select && target.select();
 
         if (!copy) return;
 
@@ -47,8 +68,8 @@
 
         if (!target) return;
 
-        if (isField.test(target.nodeName)) {
-            selectField(target, copy);
+        if (copy && isInput.test(target.nodeName)) {
+            copyText(target.value);
         } else {
             selectDOM(target, copy);
         }
@@ -58,7 +79,7 @@
     {
         if (e.button !== 0) return;
 
-        var targetQuery, target, select, el = e.target;
+        var targetQuery, target, el = e.target;
 
         if (el.matches('[' + prefix + 'data]')) {
             return copyText(el.getAttribute(prefix + 'data'));
@@ -67,14 +88,16 @@
         if (!el.matches('[' + prefix + 'target]')) return;
 
         targetQuery = el.getAttribute(prefix + 'target');
-        select = el.getAttribute(prefix + 'select');
         target = d.querySelector(targetQuery);
 
         if (!target) return false;
 
-        if (el.matches('[' + prefix + 'text="true"]')) return copyText(target.textContent);
+        if (el.matches('[' + prefix + 'text="true"]')) {
+            copyDOMText(target, el.getAttribute(prefix + 'multiple'));
+            return;
+        }
 
-        choose(target, select === "true" ? false : true);
+        choose(target, el.matches('[' + prefix + 'select="true"]') ? false : true);
     }
 
     function copyText(text)
@@ -95,7 +118,9 @@
         "select": function (target) {
             choose(target, false);
         },
-        "copy": function (target) {
+        "copy": function (target, opts) {
+            if (opts && opts.text === true) return copyDOMText(target, opts.multiple);
+
             choose(target, true);
         },
         "data": copyText

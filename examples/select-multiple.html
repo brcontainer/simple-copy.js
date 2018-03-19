@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>simplecopy.js DOM</title>
+</head>
+<body>
+    <div class="foobar">
+        <select multiple>
+            <option value="foo" selected>Foo</option>
+            <option value="bar">Bar</option>
+            <option value="baz">Baz</option>
+            <option value="fooled you!" selected>Bazinga</option>
+        </select>
+
+        <hr>
+
+        <button data-simplecopy-target=".foobar > select"
+                data-simplecopy-text="true"
+                data-simplecopy-multiple="|">Copy multiple values</button>
+    </div>
+
+    <link rel="stylesheet" type="text/css" href="example.css">
+    <script type="text/javascript" src="../simplecopy.js"></script>
+</body>
+</html>

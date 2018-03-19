@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>simplecopy.js data attribute</title>
+</head>
+<body>
+    <div class="foo" contenteditable>
+        Hello, <strong>world</strong>! <u>foo</u> <i>bar</i> <s>baz</s>
+    </div>
+
+    <div class="bar">
+        Input field <input type="text" value="input value"><br>
+
+        Input readonly field <input type="text" value="input readonly value" readonly><br>
+
+        Input disabled field <input type="text" value="input disabled value" disabled><br>
+
+        Textarea field <textarea>Textarea</textarea><br>
+
+        Button <button>Button label</button><br>
+
+        Select field
+        <select>
+            <option>Option label</option>
+        </select><br>
+
+        Select field
+        <select multiple>
+            <option selected>Option label 1</option>
+            <option>Option label 2</option>
+            <option selected>Option label 3</option>
+            <option selected>Option label 4</option>
+        </select><br>
+
+        foo bar baz
+    </div>
+
+    <div class="foobar">
+        <button data-simplecopy-target=".foo[contenteditable]">
+            Copy &lt;div class=".foo[contenteditable]"&gt;
+        </button>
+        <button data-simplecopy-target=".bar">
+            Copy &lt;div class=".bar"&gt;
+        </button>
+        <button data-simplecopy-target=".bar > input">
+            Copy &lt;input&gt;
+        </button>
+        <button data-simplecopy-target=".bar > input[readonly]">
+            Copy &lt;input readonly&gt;
+        </button>
+        <button data-simplecopy-target=".bar > input[disabled]">
+            Copy &lt;input disabled&gt;
+        </button>
+        <button data-simplecopy-target=".bar > select">
+            Copy &lt;select&gt;
+        </button>
+        <button data-simplecopy-target=".bar > select[multiple]">
+            Copy &lt;select multiple&gt;
+        </button>
+        <button data-simplecopy-target=".bar > textarea">
+            Copy &lt;textarea&gt;
+        </button>
+        <button data-simplecopy-target=".bar > button">
+            Copy &lt;button&gt;
+        </button>
+    </div>
+
+    <link rel="stylesheet" type="text/css" href="example.css">
+    <script type="text/javascript" src="../simplecopy.js"></script>
+</body>
+</html>
