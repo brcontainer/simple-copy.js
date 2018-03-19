@@ -101,6 +101,8 @@ SimpleCopy.copy("<selector>", {
 });
 ```
 
+Returns: `foo|bar|baz`
+
 You can use data attribute for copy multiple values in `<select multiple></select>`, example:
 
 ```html
