@@ -158,6 +158,6 @@ Property | equivalent | example
 `data-simplecopy-text` | `text:` | `<button data-simplecopy-target="<selector>" data-simplecopy-text="true">Copy</button>`
 `data-simplecopy-select` | `select:` | `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>`
 `data-simplecopy-content` | `content:` | `<button data-simplecopy-target="<selector>" data-simplecopy-content="true">Copy</button>`
-`data-simplecopy-multiple` | `text:` | `<button data-simplecopy-target="<selector>" data-simplecopy-multiple="|">Copy</button>`
+`data-simplecopy-multiple` | `multiple:` | `<button data-simplecopy-target="<selector>" data-simplecopy-multiple="|">Copy</button>`
 `data-simplecopy-data` | `SimpleCopy.data(<text>)` | `<button data-simplecopy-data="<text>">Copy</button>`
 `data-simplecopy-target` | `SimpleCopy.copy(<selector>)` or `SimpleCopy.select(<selector>)`  | `<button data-simplecopy-target="<selector>">Copy</button>` or `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>`
