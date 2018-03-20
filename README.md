@@ -149,7 +149,7 @@ Property | type | default | description
 `text:` | `bool` | `false` | If `true` copy node without markup (only text)
 `select:` | `bool` | `false` | If `true` only select node contents (not change clipboard)
 `content:` | `bool` | `false` | If `true` copy node content, if `false` copy entire node
-`multiple:` | `string` | `null` | This property is only used when copy `<select multiple>` only, if `multiple` is not defined is setted in clipboard only value from first selected option, if define a "separator" like `|` is setted in clipboard something like this: `foo|bar|baz` (for each selected option)
+`multiple:` | `string` | `null` | This property is only used when copy `<select multiple>` only, if `multiple` is not defined is setted in clipboard only value from first selected option, if define a "separator" like `;` is setted in clipboard something like this: `foo;bar;baz` (for each selected option)
 
 ### HTML5 data attribute
 
