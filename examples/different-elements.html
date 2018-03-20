@@ -39,9 +39,24 @@
         <button data-simplecopy-target=".foo[contenteditable]">
             Copy &lt;div class=".foo[contenteditable]"&gt;
         </button>
+        <button data-simplecopy-target=".foo[contenteditable]" data-simplecopy-content="true">
+            Copy &lt;div class=".foo[contenteditable]"&gt;
+        </button>
+        <button data-simplecopy-target=".foo[contenteditable]" data-simplecopy-text="true">
+            Copy &lt;div class=".foo[contenteditable]"&gt; (only text)
+        </button>
+
+        <br>
+
         <button data-simplecopy-target=".bar">
             Copy &lt;div class=".bar"&gt;
         </button>
+        <button data-simplecopy-target=".bar" data-simplecopy-content="true">
+            Copy &lt;div class=".bar"&gt; (only contents)
+        </button>
+
+        <br>
+
         <button data-simplecopy-target=".bar > input">
             Copy &lt;input&gt;
         </button>
@@ -51,6 +66,9 @@
         <button data-simplecopy-target=".bar > input[disabled]">
             Copy &lt;input disabled&gt;
         </button>
+
+        <br>
+
         <button data-simplecopy-target=".bar > select">
             Copy &lt;select&gt;
         </button>

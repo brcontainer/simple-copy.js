@@ -1,6 +1,6 @@
 ## SimpleCopy.js
 
-Copy DOM, textarea or fields values to clipboard, no Flash, only 1.64kB minify (0.82kB gzipped)
+Copy DOM, textarea or fields values to clipboard, no Flash, only 1.56kB minified (0.85kB gzipped)
 
 ### Setup
 
@@ -24,6 +24,12 @@ Copying text from a element using selector:
 SimpleCopy.copy("<selector>", { "text": true });
 ```
 
+Copying content from a element using selector:
+
+```javascript
+SimpleCopy.copy("<selector>", { "content": true });
+```
+
 Copying content from a element:
 
 ```javascript
@@ -36,6 +42,13 @@ Copying text from a element:
 ```javascript
 var element = document.querySelector(".foobar");
 SimpleCopy.copy(element, { "text": true });
+```
+
+Copying content from a element using selector:
+
+```javascript
+var element = document.querySelector(".foobar");
+SimpleCopy.copy(element, { "content": true });
 ```
 
 Select text in a element using selector:
@@ -86,19 +99,13 @@ Set text in clipboard by data attribute:
 Using API for copy multiple values in `<select multiple></select>`:
 
 ```javascript
-SimpleCopy.copy("<selector>", {
-    "text": true,
-    "multiple": ","
-});
+SimpleCopy.copy("<selector>", { "multiple": "," });
 ```
 
 In example comma is used to join multiple values, returning `foo,bar,baz`, if change to:
 
 ```javascript
-SimpleCopy.copy("<selector>", {
-    "text": true,
-    "multiple": "|"
-});
+SimpleCopy.copy("<selector>", { "multiple": "|" });
 ```
 
 Returns: `foo|bar|baz`
@@ -115,7 +122,42 @@ You can use data attribute for copy multiple values in `<select multiple></selec
 
 <button
     data-simplecopy-target=".foobar"
-    data-simplecopy-text="true"
     data-simplecopy-multiple=","
 >Copy</button>
 ```
+
+### API
+
+Method | Description
+--- | ---
+`SimpleCopy.copy(target[, options])` | Copy a html element
+`SimpleCopy.select(target[, options]);` | Select a html element
+`SimpleCopy.data(text);` | Set plain text in clipboar
+
+### Options
+
+In `SimpleCopy.copy` and `SimpleCopy.select` you can define behavior, example:
+
+```javascript
+SimpleCopy.copy(target, {
+    "text": true
+});
+```
+
+Property | type | default | description
+--- | --- | --- | ---
+`text:` | `bool` | `false` | If `true` copy node without markup (only text)
+`select:` | `bool` | `false` | If `true` only select node contents (not change clipboard)
+`content:` | `bool` | `false` | If `true` copy node content, if `false` copy entire node
+`multiple:` | `string` | `null` | This property is only used when copy `<select multiple>` only, if `multiple` is not defined is setted in clipboard only value from first selected option, if define a "separator" like `|` is setted in clipboard something like this: `foo|bar|baz` (for each selected option)
+
+### HTML5 data attribute
+
+Property | equivalent | example
+--- | --- | ---
+`data-simplecopy-text` | `text:` | `<button data-simplecopy-target="<selector>" data-simplecopy-text="true">Copy</button>`
+`data-simplecopy-select` | `select:` | `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>`
+`data-simplecopy-content` | `content:` | `<button data-simplecopy-target="<selector>" data-simplecopy-content="true">Copy</button>`
+`data-simplecopy-multiple` | `text:` | `<button data-simplecopy-target="<selector>" data-simplecopy-multiple="|">Copy</button>`
+`data-simplecopy-data` | `SimpleCopy.data(<text>)` | `<button data-simplecopy-data="<text>">Copy</button>`
+`data-simplecopy-target` | `SimpleCopy.copy(<selector>)` or `SimpleCopy.select(<selector>)`  | `<button data-simplecopy-target="<selector>">Copy</button>` or `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>`

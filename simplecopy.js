@@ -1,5 +1,5 @@
 /*
- * SimpleCopy.js 0.2.0
+ * SimpleCopy.js 0.3.0
  *
  * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -9,18 +9,17 @@
 (function (w, d) {
     "use strict";
 
-    var m = w.Element && w.Element.prototype,
+    var tmp, m = w.Element && w.Element.prototype,
         prefix = "data-simplecopy-",
-        isInput = /^(input|textarea)$/i,
-        tmp;
+        selection = w.getSelection();
 
-    function copyDOMText(target, multiple)
+    function copyElement(target, select, text, content, multiple)
     {
-        var result = '';
-
         if (typeof target.labels === "object") {
-            if (target.nodeName === "SELECT" && target.multiple && multiple) {
-                for (var i = 0, values = [], els = target.options, j = els.length; i < j; i++) {
+            if (target.nodeName === "SELECT" && multiple) {
+                var result, i = 0, values = [], els = target.options, j = els.length;
+
+                for (; i < j; i++) {
                     if (els[i].selected) values.push(els[i].value);
                 }
 
@@ -28,76 +27,34 @@
             } else {
                 result = target.value;
             }
-        } else {
-            result = target.textContent;
+
+            return copyText(result);
+        } else if (text) {
+            return copyText(target.textContent);
         }
 
-        result && copyText(result);
-    }
-
-    function selectDOM(target, copy)
-    {
-        var selection = w.getSelection(),
-            range = d.createRange();
-
-        range.selectNode(target);
+        var range = d.createRange(), forceEdit = !select && !target.isContentEditable;
 
         selection.removeAllRanges();
+
+        if (target.isContentEditable || content) {
+            /* Hack for prevent Firefox bug */
+            if (forceEdit) target.contentEditable = true;
+
+            range.selectNodeContents(target);
+        } else {
+            range.selectNode(target);
+        }
+
         selection.addRange(range);
 
-        if (!copy) return;
+        if (select) return;
 
         d.execCommand("copy");
+
+        if (forceEdit) target.contentEditable = false;
+
         selection.removeAllRanges();
-    }
-
-    function selectField(target, copy)
-    {
-        target.focus();
-        target.select && target.select();
-
-        if (!copy) return;
-
-        d.execCommand("copy");
-        w.getSelection().removeAllRanges();
-    }
-
-    function choose(target, copy)
-    {
-        if (typeof target === "string") target = d.querySelector(target);
-
-        if (!target) return;
-
-        if (copy && isInput.test(target.nodeName)) {
-            copyText(target.value);
-        } else {
-            selectDOM(target, copy);
-        }
-    }
-
-    function simpleCopyEvents(e)
-    {
-        if (e.button !== 0) return;
-
-        var targetQuery, target, el = e.target;
-
-        if (el.matches('[' + prefix + 'data]')) {
-            return copyText(el.getAttribute(prefix + 'data'));
-        }
-
-        if (!el.matches('[' + prefix + 'target]')) return;
-
-        targetQuery = el.getAttribute(prefix + 'target');
-        target = d.querySelector(targetQuery);
-
-        if (!target) return false;
-
-        if (el.matches('[' + prefix + 'text="true"]')) {
-            copyDOMText(target, el.getAttribute(prefix + 'multiple'));
-            return;
-        }
-
-        choose(target, el.matches('[' + prefix + 'select="true"]') ? false : true);
     }
 
     function copyText(text)
@@ -107,21 +64,48 @@
 
         d.body.appendChild(tmp);
 
-        selectField(tmp, true);
+        tmp.focus();
+        tmp.select && tmp.select();
+
+        d.execCommand("copy");
+        selection.removeAllRanges();
 
         d.body.removeChild(tmp);
     }
 
-    d.addEventListener("click", simpleCopyEvents);
+    function attr(el, option, value)
+    {
+        return value ? el.getAttribute(prefix + option) : el.matches('[' + prefix + option + '="true"]');
+    }
+
+    function mainEvents(e)
+    {
+        if (e.button !== 0) return;
+
+        var target, query, el = e.target, data = attr(el, 'data', true);
+
+        if (data) return copyText( data );
+
+        query = attr(el, 'target', true);
+
+        if (!query) return;
+
+        target = d.querySelector( query );
+
+        if (!target) return false;
+
+        copyElement(target, attr(el, 'select'), attr(el, 'text'), attr(el, 'content'), attr(el, 'multiple', true));
+    }
+
+    d.addEventListener("click", mainEvents);
 
     w.SimpleCopy = {
-        "select": function (target) {
-            choose(target, false);
+        "select": function (target, opts) {
+            copyElement(target, true);
         },
         "copy": function (target, opts) {
-            if (opts && opts.text === true) return copyDOMText(target, opts.multiple);
-
-            choose(target, true);
+            opts = opts || {};
+            copyElement(target, opts.select, opts.text, opts.content, opts.multiple);
         },
         "data": copyText
     };
