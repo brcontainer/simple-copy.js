@@ -1,5 +1,5 @@
 /*
- * SimpleCopy.js 0.3.0
+ * SimpleCopy.js 0.4.0
  *
  * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -11,11 +11,31 @@
 
     var tmp, m = w.Element && w.Element.prototype,
         prefix = "data-simplecopy-",
-        selection = w.getSelection();
+        selection = w.getSelection(),
+        docEl = d.documentElement;
 
-    function copyElement(target, select, text, content, multiple)
+    function copyElement(target, select, text, node, multiple)
     {
-        if (typeof target.labels === "object") {
+        var isForm = typeof target.form === "object";
+
+        if (text && !isForm) {
+            return copyText(target.textContent);
+        }
+
+        var range = d.createRange(),
+            isEditable = target.isContentEditable,
+            hack = !select && !isForm;
+
+        selection.removeAllRanges();
+
+        if (hack) target.contentEditable = node ? "inherit" : true;
+
+        if (isForm && !node) {
+            if (select) {
+                target.select && target.select();
+                return target.focus();
+            }
+
             if (target.nodeName === "SELECT" && multiple) {
                 var result, i = 0, values = [], els = target.options, j = els.length;
 
@@ -29,21 +49,10 @@
             }
 
             return copyText(result);
-        } else if (text) {
-            return copyText(target.textContent);
-        }
-
-        var range = d.createRange(), forceEdit = !select && !target.isContentEditable;
-
-        selection.removeAllRanges();
-
-        if (target.isContentEditable || content) {
-            /* Hack for prevent Firefox bug */
-            if (forceEdit) target.contentEditable = true;
-
-            range.selectNodeContents(target);
-        } else {
+        } else if (node) {
             range.selectNode(target);
+        } else {
+            range.selectNodeContents(target);
         }
 
         selection.addRange(range);
@@ -52,15 +61,20 @@
 
         d.execCommand("copy");
 
-        if (forceEdit) target.contentEditable = false;
+        if (hack) target.contentEditable = isEditable ? true : "inherit";
 
         selection.removeAllRanges();
     }
 
     function copyText(text)
     {
+        var x = docEl.scrollLeft,
+            y = docEl.scrollTop;
+
         tmp = tmp || d.createElement("textarea");
         tmp.value = text;
+
+        d.documentElement.scrollLeft;
 
         d.body.appendChild(tmp);
 
@@ -68,9 +82,10 @@
         tmp.select && tmp.select();
 
         d.execCommand("copy");
-        selection.removeAllRanges();
-
         d.body.removeChild(tmp);
+
+        docEl.scrollLeft = x;
+        docEl.scrollTop = y;
     }
 
     function attr(el, option, value)
@@ -82,11 +97,11 @@
     {
         if (e.button !== 0) return;
 
-        var target, query, el = e.target, data = attr(el, 'data', true);
+        var target, query, el = e.target, data = attr(el, "data", true);
 
         if (data) return copyText( data );
 
-        query = attr(el, 'target', true);
+        query = attr(el, "target", true);
 
         if (!query) return;
 
@@ -94,7 +109,7 @@
 
         if (!target) return false;
 
-        copyElement(target, attr(el, 'select'), attr(el, 'text'), attr(el, 'content'), attr(el, 'multiple', true));
+        copyElement(target, attr(el, "select"), attr(el, "text"), attr(el, "node"), attr(el, "multiple", true));
     }
 
     d.addEventListener("click", mainEvents);
@@ -105,7 +120,7 @@
         },
         "copy": function (target, opts) {
             opts = opts || {};
-            copyElement(target, opts.select, opts.text, opts.content, opts.multiple);
+            copyElement(target, opts.select, opts.text, opts.node, opts.multiple);
         },
         "data": copyText
     };

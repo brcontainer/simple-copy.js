@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>simplecopy.js data attribute</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 </head>
 <body>
     <div class="foo" contenteditable>
@@ -24,63 +26,52 @@
             <option>Option label</option>
         </select><br>
 
-        Select field
-        <select multiple>
-            <option selected>Option label 1</option>
-            <option>Option label 2</option>
-            <option selected>Option label 3</option>
-            <option selected>Option label 4</option>
-        </select><br>
-
         foo bar baz
     </div>
 
     <div class="foobar">
-        <button data-simplecopy-target=".foo[contenteditable]">
-            Copy &lt;div class=".foo[contenteditable]"&gt;
-        </button>
-        <button data-simplecopy-target=".foo[contenteditable]" data-simplecopy-content="true">
-            Copy &lt;div class=".foo[contenteditable]"&gt;
-        </button>
-        <button data-simplecopy-target=".foo[contenteditable]" data-simplecopy-text="true">
-            Copy &lt;div class=".foo[contenteditable]"&gt; (only text)
-        </button>
 
-        <br>
+        <hr>
 
-        <button data-simplecopy-target=".bar">
-            Copy &lt;div class=".bar"&gt;
-        </button>
-        <button data-simplecopy-target=".bar" data-simplecopy-content="true">
-            Copy &lt;div class=".bar"&gt; (only contents)
-        </button>
+        <button data-simplecopy-target=".foo[contenteditable]">Copy &lt;div class=".foo[contenteditable]"&gt;</button>
+        <button data-simplecopy-target=".foo[contenteditable]" data-simplecopy-node="true">Copy &lt;div class=".foo[contenteditable]"&gt; (entiry node)</button>
+        <button data-simplecopy-target=".foo[contenteditable]" data-simplecopy-text="true">Copy &lt;div class=".foo[contenteditable]"&gt; (only text)</button>
+        <button data-simplecopy-target=".foo[contenteditable]" data-simplecopy-select="true">Copy &lt;div class=".foo[contenteditable]"&gt; (select text)</button>
 
-        <br>
+        <hr>
 
-        <button data-simplecopy-target=".bar > input">
-            Copy &lt;input&gt;
-        </button>
-        <button data-simplecopy-target=".bar > input[readonly]">
-            Copy &lt;input readonly&gt;
-        </button>
-        <button data-simplecopy-target=".bar > input[disabled]">
-            Copy &lt;input disabled&gt;
-        </button>
+        <button data-simplecopy-target=".bar">Copy &lt;div class=".bar"&gt;</button>
+        <button data-simplecopy-target=".bar" data-simplecopy-node="true">Copy &lt;div class=".bar"&gt; (entiry node)</button>
+        <button data-simplecopy-target=".bar" data-simplecopy-select="true">Copy &lt;div class=".bar"&gt; (select text)</button>
 
-        <br>
+        <hr>
 
-        <button data-simplecopy-target=".bar > select">
-            Copy &lt;select&gt;
-        </button>
-        <button data-simplecopy-target=".bar > select[multiple]">
-            Copy &lt;select multiple&gt;
-        </button>
-        <button data-simplecopy-target=".bar > textarea">
-            Copy &lt;textarea&gt;
-        </button>
-        <button data-simplecopy-target=".bar > button">
-            Copy &lt;button&gt;
-        </button>
+        <button data-simplecopy-target=".bar > input">Copy &lt;input&gt;</button>
+        <button data-simplecopy-target=".bar > input" data-simplecopy-node="true">Copy &lt;input&gt; (entiry node)</button>
+        <button data-simplecopy-target=".bar > input" data-simplecopy-select="true">Copy &lt;input&gt; (select text)</button>
+
+        <hr>
+
+        <button data-simplecopy-target=".bar > input[readonly]" data-simplecopy-node="true">Copy &lt;input readonly&gt;</button>
+        <button data-simplecopy-target=".bar > input[disabled]" data-simplecopy-node="true">Copy &lt;input disabled&gt;</button>
+
+        <hr>
+
+        <button data-simplecopy-target=".bar > textarea">Copy &lt;textarea&gt;</button>
+        <button data-simplecopy-target=".bar > textarea" data-simplecopy-node="true">Copy &lt;textarea&gt; (entiry node)</button>
+        <button data-simplecopy-target=".bar > textarea" data-simplecopy-select="true">Copy &lt;textarea&gt; (select text)</button>
+
+        <hr>
+
+        <button data-simplecopy-target=".bar > button">Copy &lt;button&gt;</button>
+        <button data-simplecopy-target=".bar > button" data-simplecopy-node="true">Copy &lt;button&gt; (entiry node)</button>
+        <button data-simplecopy-target=".bar > button" data-simplecopy-select="true">Copy &lt;button&gt; (select text)</button>
+
+        <hr>
+
+        <button data-simplecopy-target=".bar > select">Copy &lt;select&gt;</button>
+        <button data-simplecopy-target=".bar > select" data-simplecopy-node="true">Copy &lt;select&gt; (entiry node)</button>
+        <button data-simplecopy-target=".bar > select" data-simplecopy-select="true">Copy &lt;select&gt; (select text)</button>
     </div>
 
     <link rel="stylesheet" type="text/css" href="example.css">

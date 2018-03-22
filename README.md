@@ -24,31 +24,31 @@ Copying text from a element using selector:
 SimpleCopy.copy("<selector>", { "text": true });
 ```
 
-Copying content from a element using selector:
+Copying entire element using selector:
 
 ```javascript
-SimpleCopy.copy("<selector>", { "content": true });
+SimpleCopy.copy("<selector>", { "node": true });
 ```
 
-Copying content from a element:
+Copying content from a element using selector:
 
 ```javascript
 var element = document.querySelector(".foobar");
 SimpleCopy.copy(element);
 ```
 
-Copying text from a element:
+Copying text from a element using selector:
 
 ```javascript
-var element = document.querySelector(".foobar");
+var element = document.getElementById("idelement");
 SimpleCopy.copy(element, { "text": true });
 ```
 
-Copying content from a element using selector:
+Copying entire element:
 
 ```javascript
-var element = document.querySelector(".foobar");
-SimpleCopy.copy(element, { "content": true });
+var element = document.getElementsByClassName("<class>");
+SimpleCopy.copy(element[0], { "node": true });
 ```
 
 Select text in a element using selector:
@@ -57,7 +57,14 @@ Select text in a element using selector:
 SimpleCopy.select("<selector>");
 ```
 
-Select text in a element:
+Select content in a element:
+
+```javascript
+var element = document.querySelector(".foobar");
+SimpleCopy.select(element);
+```
+
+Select entire node:
 
 ```javascript
 var element = document.querySelector(".foobar");
@@ -74,6 +81,12 @@ Copy content from element defined in data attributes:
 
 ```html
 <button data-simplecopy-target="<selector>">Copy</button>
+```
+
+Copy entire element defined in data attributes:
+
+```html
+<button data-simplecopy-target="<selector>" data-simplecopy-node="true">Copy</button>
 ```
 
 Select content from element defined in data attributes:
@@ -148,7 +161,7 @@ Property | type | default | description
 --- | --- | --- | ---
 `text:` | `bool` | `false` | If `true` copy node without markup (only text)
 `select:` | `bool` | `false` | If `true` only select node contents (not change clipboard)
-`content:` | `bool` | `false` | If `true` copy node content, if `false` copy entire node
+`node:` | `bool` | `false` | If `true` copy entire node, if `false` copy node contents
 `multiple:` | `string` | `null` | This property is only used when copy `<select multiple>` only, if `multiple` is not defined is setted in clipboard only value from first selected option, if define a "separator" like `;` is setted in clipboard something like this: `foo;bar;baz` (for each selected option)
 
 ### HTML5 data attribute
@@ -157,7 +170,7 @@ Property | equivalent | example
 --- | --- | ---
 `data-simplecopy-text` | `text:` | `<button data-simplecopy-target="<selector>" data-simplecopy-text="true">Copy</button>`
 `data-simplecopy-select` | `select:` | `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>`
-`data-simplecopy-content` | `content:` | `<button data-simplecopy-target="<selector>" data-simplecopy-content="true">Copy</button>`
+`data-simplecopy-node` | `node:` | `<button data-simplecopy-target="<selector>" data-simplecopy-node="true">Copy</button>`
 `data-simplecopy-multiple` | `multiple:` | `<button data-simplecopy-target="<selector>" data-simplecopy-multiple=";">Copy</button>`
 `data-simplecopy-data` | `SimpleCopy.data(<text>)` | `<button data-simplecopy-data="<text>">Copy</button>`
 `data-simplecopy-target` | `SimpleCopy.copy(<selector>)` or `SimpleCopy.select(<selector>)`  | `<button data-simplecopy-target="<selector>">Copy</button>` or `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>`
