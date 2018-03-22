@@ -68,7 +68,7 @@ Select entire node:
 
 ```javascript
 var element = document.querySelector(".foobar");
-SimpleCopy.select(element);
+SimpleCopy.select(element, { "node": true });
 ```
 
 Set text in clipboard:
