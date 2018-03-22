@@ -159,18 +159,17 @@ SimpleCopy.copy(target, {
 
 Property | type | default | description
 --- | --- | --- | ---
-`text:` | `bool` | `false` | If `true` copy node without markup (only text)
-`select:` | `bool` | `false` | If `true` only select node contents (not change clipboard)
-`node:` | `bool` | `false` | If `true` copy entire node, if `false` copy node contents
-`multiple:` | `string` | `null` | This property is only used when copy `<select multiple>` only, if `multiple` is not defined is setted in clipboard only value from first selected option, if define a "separator" like `;` is setted in clipboard something like this: `foo;bar;baz` (for each selected option)
+`text:` | `bool` | `false` | If `true` copy node without markup (only text). Available only `SimpleCopy.copy`
+`node:` | `bool` | `false` | If `true` copy entire node, if `false` copy node contents. Available in `SimpleCopy.copy` and `SimpleCopy.select`
+`multiple:` | `string` | `null` | This property is only used when copy `<select multiple>` only, if `multiple` is not defined is setted in clipboard only.  value from first selected option, if define a "separator" like `;` is setted in clipboard something like this: `foo;bar;baz` (for each selected option). Available only `SimpleCopy.copy`
 
 ### HTML5 data attribute
 
 Property | equivalent | example
 --- | --- | ---
+`data-simplecopy-target` | - | `<button data-simplecopy-target="<selector>">Copy</button>`
+`data-simplecopy-select` | `SimpleCopy.select(<selector>)` | `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>`
 `data-simplecopy-text` | `text:` | `<button data-simplecopy-target="<selector>" data-simplecopy-text="true">Copy</button>`
-`data-simplecopy-select` | `select:` | `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>`
 `data-simplecopy-node` | `node:` | `<button data-simplecopy-target="<selector>" data-simplecopy-node="true">Copy</button>`
 `data-simplecopy-multiple` | `multiple:` | `<button data-simplecopy-target="<selector>" data-simplecopy-multiple=";">Copy</button>`
 `data-simplecopy-data` | `SimpleCopy.data(<text>)` | `<button data-simplecopy-data="<text>">Copy</button>`
-`data-simplecopy-target` | `SimpleCopy.copy(<selector>)` or `SimpleCopy.select(<selector>)`  | `<button data-simplecopy-target="<selector>">Copy</button>` or `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>`

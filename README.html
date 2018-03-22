@@ -1155,25 +1155,19 @@ SimpleCopy.select(element, { &quot;node&quot;: true });
 <td><code>text:</code></td>
 <td><code>bool</code></td>
 <td><code>false</code></td>
-<td>If <code>true</code> copy node without markup (only text)</td>
-</tr>
-<tr>
-<td><code>select:</code></td>
-<td><code>bool</code></td>
-<td><code>false</code></td>
-<td>If <code>true</code> only select node contents (not change clipboard)</td>
+<td>If <code>true</code> copy node without markup (only text). Available only <code>SimpleCopy.copy</code></td>
 </tr>
 <tr>
 <td><code>node:</code></td>
 <td><code>bool</code></td>
 <td><code>false</code></td>
-<td>If <code>true</code> copy entire node, if <code>false</code> copy node contents</td>
+<td>If <code>true</code> copy entire node, if <code>false</code> copy node contents. Available in <code>SimpleCopy.copy</code> and <code>SimpleCopy.select</code></td>
 </tr>
 <tr>
 <td><code>multiple:</code></td>
 <td><code>string</code></td>
 <td><code>null</code></td>
-<td>This property is only used when copy <code>&lt;select multiple&gt;</code> only, if <code>multiple</code> is not defined is setted in clipboard only value from first selected option, if define a &ldquo;separator&rdquo; like <code>;</code> is setted in clipboard something like this: <code>foo;bar;baz</code> (for each selected option)</td>
+<td>This property is only used when copy <code>&lt;select multiple&gt;</code> only, if <code>multiple</code> is not defined is setted in clipboard only.  value from first selected option, if define a &ldquo;separator&rdquo; like <code>;</code> is setted in clipboard something like this: <code>foo;bar;baz</code> (for each selected option). Available only <code>SimpleCopy.copy</code></td>
 </tr>
 </tbody>
 </table>
@@ -1188,14 +1182,19 @@ SimpleCopy.select(element, { &quot;node&quot;: true });
 </thead>
 <tbody>
 <tr>
-<td><code>data-simplecopy-text</code></td>
-<td><code>text:</code></td>
-<td><code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-text="true"&gt;Copy&lt;/button&gt;</code></td>
+<td><code>data-simplecopy-target</code></td>
+<td>-</td>
+<td><code>&lt;button data-simplecopy-target="&lt;selector&gt;"&gt;Copy&lt;/button&gt;</code></td>
 </tr>
 <tr>
 <td><code>data-simplecopy-select</code></td>
-<td><code>select:</code></td>
+<td><code>SimpleCopy.select(&lt;selector&gt;)</code></td>
 <td><code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-select="true"&gt;Copy&lt;/button&gt;</code></td>
+</tr>
+<tr>
+<td><code>data-simplecopy-text</code></td>
+<td><code>text:</code></td>
+<td><code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-text="true"&gt;Copy&lt;/button&gt;</code></td>
 </tr>
 <tr>
 <td><code>data-simplecopy-node</code></td>
@@ -1211,11 +1210,6 @@ SimpleCopy.select(element, { &quot;node&quot;: true });
 <td><code>data-simplecopy-data</code></td>
 <td><code>SimpleCopy.data(&lt;text&gt;)</code></td>
 <td><code>&lt;button data-simplecopy-data="&lt;text&gt;"&gt;Copy&lt;/button&gt;</code></td>
-</tr>
-<tr>
-<td><code>data-simplecopy-target</code></td>
-<td><code>SimpleCopy.copy(&lt;selector&gt;)</code> or <code>SimpleCopy.select(&lt;selector&gt;)</code></td>
-<td><code>&lt;button data-simplecopy-target="&lt;selector&gt;"&gt;Copy&lt;/button&gt;</code> or <code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-select="true"&gt;Copy&lt;/button&gt;</code></td>
 </tr>
 </tbody>
 </table></article></body></html>

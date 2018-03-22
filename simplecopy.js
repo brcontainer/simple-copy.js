@@ -1,5 +1,5 @@
 /*
- * SimpleCopy.js 0.4.0
+ * SimpleCopy.js 0.4.1
  *
  * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -116,11 +116,11 @@
 
     w.SimpleCopy = {
         "select": function (target, opts) {
-            copyElement(target, true);
+            copyElement(target, true, false, opts.node);
         },
         "copy": function (target, opts) {
             opts = opts || {};
-            copyElement(target, opts.select, opts.text, opts.node, opts.multiple);
+            copyElement(target, false, opts.text, opts.node, opts.multiple);
         },
         "data": copyText
     };
