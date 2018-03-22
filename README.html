@@ -1015,7 +1015,7 @@ body .markdown-body
   }
 }
 </style><title>README</title></head><body><article class="markdown-body"><h2 id="simplecopyjs"><a name="user-content-simplecopyjs" href="#simplecopyjs" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>SimpleCopy.js</h2>
-<p>Copy DOM, textarea or fields values to clipboard, no Flash, only 1.56kB minified (0.85kB gzipped)</p>
+<p>Copy DOM, textarea or fields values to clipboard, no Flash, only 1.69kB minified (0.90kB gzipped)</p>
 <h3 id="setup"><a name="user-content-setup" href="#setup" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Setup</h3>
 <p>Include lib</p>
 <pre><code class="html">&lt;script src=&quot;simplecopy.min.js&quot;&gt;&lt;/script&gt;
@@ -1030,30 +1030,35 @@ body .markdown-body
 <pre><code class="javascript">SimpleCopy.copy(&quot;&lt;selector&gt;&quot;, { &quot;text&quot;: true });
 </code></pre>
 
-<p>Copying content from a element using selector:</p>
-<pre><code class="javascript">SimpleCopy.copy(&quot;&lt;selector&gt;&quot;, { &quot;content&quot;: true });
+<p>Copying entire element using selector:</p>
+<pre><code class="javascript">SimpleCopy.copy(&quot;&lt;selector&gt;&quot;, { &quot;node&quot;: true });
 </code></pre>
 
-<p>Copying content from a element:</p>
+<p>Copying content from a element using selector:</p>
 <pre><code class="javascript">var element = document.querySelector(&quot;.foobar&quot;);
 SimpleCopy.copy(element);
 </code></pre>
 
-<p>Copying text from a element:</p>
-<pre><code class="javascript">var element = document.querySelector(&quot;.foobar&quot;);
+<p>Copying text from a element using selector:</p>
+<pre><code class="javascript">var element = document.getElementById(&quot;idelement&quot;);
 SimpleCopy.copy(element, { &quot;text&quot;: true });
 </code></pre>
 
-<p>Copying content from a element using selector:</p>
-<pre><code class="javascript">var element = document.querySelector(&quot;.foobar&quot;);
-SimpleCopy.copy(element, { &quot;content&quot;: true });
+<p>Copying entire element:</p>
+<pre><code class="javascript">var element = document.getElementsByClassName(&quot;&lt;class&gt;&quot;);
+SimpleCopy.copy(element[0], { &quot;node&quot;: true });
 </code></pre>
 
 <p>Select text in a element using selector:</p>
 <pre><code class="javascript">SimpleCopy.select(&quot;&lt;selector&gt;&quot;);
 </code></pre>
 
-<p>Select text in a element:</p>
+<p>Select content in a element:</p>
+<pre><code class="javascript">var element = document.querySelector(&quot;.foobar&quot;);
+SimpleCopy.select(element);
+</code></pre>
+
+<p>Select entire node:</p>
 <pre><code class="javascript">var element = document.querySelector(&quot;.foobar&quot;);
 SimpleCopy.select(element);
 </code></pre>
@@ -1064,6 +1069,10 @@ SimpleCopy.select(element);
 
 <p>Copy content from element defined in data attributes:</p>
 <pre><code class="html">&lt;button data-simplecopy-target=&quot;&lt;selector&gt;&quot;&gt;Copy&lt;/button&gt;
+</code></pre>
+
+<p>Copy entire element defined in data attributes:</p>
+<pre><code class="html">&lt;button data-simplecopy-target=&quot;&lt;selector&gt;&quot; data-simplecopy-node=&quot;true&quot;&gt;Copy&lt;/button&gt;
 </code></pre>
 
 <p>Select content from element defined in data attributes:</p>
@@ -1155,10 +1164,10 @@ SimpleCopy.select(element);
 <td>If <code>true</code> only select node contents (not change clipboard)</td>
 </tr>
 <tr>
-<td><code>content:</code></td>
+<td><code>node:</code></td>
 <td><code>bool</code></td>
 <td><code>false</code></td>
-<td>If <code>true</code> copy node content, if <code>false</code> copy entire node</td>
+<td>If <code>true</code> copy entire node, if <code>false</code> copy node contents</td>
 </tr>
 <tr>
 <td><code>multiple:</code></td>
@@ -1189,9 +1198,9 @@ SimpleCopy.select(element);
 <td><code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-select="true"&gt;Copy&lt;/button&gt;</code></td>
 </tr>
 <tr>
-<td><code>data-simplecopy-content</code></td>
-<td><code>content:</code></td>
-<td><code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-content="true"&gt;Copy&lt;/button&gt;</code></td>
+<td><code>data-simplecopy-node</code></td>
+<td><code>node:</code></td>
+<td><code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-node="true"&gt;Copy&lt;/button&gt;</code></td>
 </tr>
 <tr>
 <td><code>data-simplecopy-multiple</code></td>
