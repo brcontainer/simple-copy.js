@@ -31,6 +31,7 @@ button {
 
 textarea {
     width: 98%;
+    height: 100px;
 }
 
 button:focus, button:active {
@@ -39,6 +40,10 @@ button:focus, button:active {
     border-color: #001123;
 }
 
-*[data-simplecopy-text!=""] {
-    font-size: 200%;
+.design-mode {
+    border: 1px solid #0c0c0c;
+    background-color: #fff;
+    width: 480px;
+    height: 320px;
+    resize: both;
 }

@@ -143,8 +143,8 @@ You can use data attribute for copy multiple values in `<select multiple></selec
 
 Method | Description
 --- | ---
-`SimpleCopy.copy(target[, options])` | Copy a html element
-`SimpleCopy.select(target[, options]);` | Select a html element
+`SimpleCopy.copy(target[, options])` | Copy the contents of an HTML element
+`SimpleCopy.select(target[, options]);` | Select the contents of an HTML element
 `SimpleCopy.data(text);` | Set plain text in clipboard
 
 ### Options
@@ -161,7 +161,7 @@ Property | type | default | description
 --- | --- | --- | ---
 `text:` | `bool` | `false` | If `true` copy node without markup (only text). Available only `SimpleCopy.copy`
 `node:` | `bool` | `false` | If `true` copy entire node, if `false` copy node contents. Available in `SimpleCopy.copy` and `SimpleCopy.select`
-`multiple:` | `string` | `null` | This property is only used when copy `<select multiple>` only, if `multiple` is not defined is setted in clipboard only.  value from first selected option, if define a "separator" like `;` is setted in clipboard something like this: `foo;bar;baz` (for each selected option). Available only `SimpleCopy.copy`
+`multiple:` | `string` | `null` | This property is only used when copy `<select multiple>` only, if `multiple` is not defined only first option selected is setted in clipboard, if define a "separator" like `;` is setted in clipboard something like this: `foo;bar;baz` (for each selected option). Available only `SimpleCopy.copy`
 
 ### HTML5 data attribute
 

@@ -1,5 +1,5 @@
 /*
- * SimpleCopy.js 0.4.1
+ * SimpleCopy.js 0.4.2
  *
  * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -10,17 +10,16 @@
     "use strict";
 
     var tmp, m = w.Element && w.Element.prototype,
-        prefix = "data-simplecopy-",
         selection = w.getSelection(),
-        docEl = d.documentElement;
+        prefix = "data-simplecopy-",
+        docEl = d.documentElement,
+        body = d.body;
 
     function copyElement(target, select, text, node, multiple)
     {
         var isForm = typeof target.form === "object";
 
-        if (text && !isForm) {
-            return copyText(target.textContent);
-        }
+        if (text && !isForm) return copyText(target.textContent);
 
         var range = d.createRange(),
             isEditable = target.isContentEditable,
@@ -31,17 +30,12 @@
         if (hack) target.contentEditable = node ? "inherit" : true;
 
         if (isForm && !node) {
-            if (select) {
-                target.select && target.select();
-                return target.focus();
-            }
+            if (select) return selectField(target);
 
             if (target.nodeName === "SELECT" && multiple) {
                 var result, i = 0, values = [], els = target.options, j = els.length;
 
-                for (; i < j; i++) {
-                    if (els[i].selected) values.push(els[i].value);
-                }
+                for (; i < j; i++) els[i].selected && values.push(els[i].value);
 
                 result = values.join(multiple);
             } else {
@@ -66,23 +60,28 @@
         selection.removeAllRanges();
     }
 
+    function selectField(target)
+    {
+        target.focus();
+        target.select();
+    }
+
     function copyText(text)
     {
         var x = docEl.scrollLeft,
             y = docEl.scrollTop;
 
         tmp = tmp || d.createElement("textarea");
+        tmp.style.cssText = 'position:absolute;left:' + x + 'px;top:' + y + 'px;visibility:hidden';
         tmp.value = text;
 
-        d.documentElement.scrollLeft;
+        body.appendChild(tmp);
 
-        d.body.appendChild(tmp);
-
-        tmp.focus();
-        tmp.select && tmp.select();
+        selectField(tmp);
 
         d.execCommand("copy");
-        d.body.removeChild(tmp);
+
+        body.removeChild(tmp);
 
         docEl.scrollLeft = x;
         docEl.scrollTop = y;
@@ -99,13 +98,13 @@
 
         var target, query, el = e.target, data = attr(el, "data", true);
 
-        if (data) return copyText( data );
+        if (data) return copyText(data);
 
         query = attr(el, "target", true);
 
         if (!query) return;
 
-        target = d.querySelector( query );
+        target = d.querySelector(query);
 
         if (!target) return false;
 
@@ -116,6 +115,7 @@
 
     w.SimpleCopy = {
         "select": function (target, opts) {
+            opts = opts || {};
             copyElement(target, true, false, opts.node);
         },
         "copy": function (target, opts) {
@@ -128,8 +128,8 @@
     if (!m || m.matches) return;
 
     m.matches = m.matchesSelector || m.mozMatchesSelector || m.msMatchesSelector ||
-    m.oMatchesSelector || m.webkitMatchesSelector || function(s) {
-        var m = (this.document || this.ownerDocument).querySelectorAll(s), i = m.length;
+    m.oMatchesSelector || m.webkitMatchesSelector || function (query) {
+        var m = (this.document || this.ownerDocument).querySelectorAll(query), i = m.length;
 
         while (--i >= 0 && m[i] !== this);
         return i > -1;
