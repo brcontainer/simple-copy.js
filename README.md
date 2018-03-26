@@ -1,4 +1,4 @@
-## SimpleCopy.js
+## simple-copy.js
 
 Copy DOM, textarea or fields values to clipboard, no Flash, only 1.75kB minified (0.95kB gzipped).
 
@@ -7,7 +7,7 @@ Copy DOM, textarea or fields values to clipboard, no Flash, only 1.75kB minified
 Include lib
 
 ```html
-<script src="simplecopy.min.js"></script>
+<script src="simple-copy.min.js"></script>
 ```
 
 ## Usage

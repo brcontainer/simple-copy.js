@@ -1,5 +1,5 @@
 /*
- * SimpleCopy.js 0.4.2
+ * simple-copy.js 0.4.2
  *
  * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
