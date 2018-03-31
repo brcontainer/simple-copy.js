@@ -1,5 +1,5 @@
 /*
- * simple-copy.js 0.4.2
+ * simple-copy.js 0.4.3
  *
  * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -9,17 +9,34 @@
 (function (w, d) {
     "use strict";
 
-    var tmp, m = w.Element && w.Element.prototype,
+    var txt, m = w.Element && w.Element.prototype,
         selection = w.getSelection(),
         prefix = "data-simplecopy-",
-        docEl = d.documentElement,
-        body = d.body;
+        ignore = "script,noscript,object,link,img",
+        body = d.body,
+        docEl;
+
+    function copyWithoutFormat(target)
+    {
+        var tmpDoc = d.implementation.createHTMLDocument("");
+        tmpDoc.body.innerHTML = target.innerHTML;
+
+        for (var j = tmpDoc.querySelectorAll(ignore), i = j.length - 1; i >= 0; i--) {
+            var el = j[i];
+
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        }
+
+        copyText(tmpDoc.body.textContent);
+
+        tmpDoc = null;
+    }
 
     function copyElement(target, select, text, node, multiple)
     {
         var isForm = typeof target.form === "object";
 
-        if (text && !isForm) return copyText(target.textContent);
+        if (text && !isForm) return copyWithoutFormat(target);
 
         var range = d.createRange(),
             isEditable = target.isContentEditable,
@@ -63,25 +80,27 @@
     function selectField(target)
     {
         target.focus();
-        target.select();
+        target.select && target.select();
     }
 
     function copyText(text)
     {
+        docEl = docEl || (d.scrollingElement ? d.scrollingElement : d.body);
+
         var x = docEl.scrollLeft,
             y = docEl.scrollTop;
 
-        tmp = tmp || d.createElement("textarea");
-        tmp.style.cssText = 'position:absolute;left:' + x + 'px;top:' + y + 'px;visibility:hidden';
-        tmp.value = text;
+        txt = txt || d.createElement("textarea");
+        txt.style.cssText = 'position:absolute;left:' + x + 'px;top:' + y + 'px;opacity:0';
+        txt.value = text;
 
-        body.appendChild(tmp);
+        body.appendChild(txt);
 
-        selectField(tmp);
+        selectField(txt);
 
         d.execCommand("copy");
 
-        body.removeChild(tmp);
+        body.removeChild(txt);
 
         docEl.scrollLeft = x;
         docEl.scrollTop = y;
