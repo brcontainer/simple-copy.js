@@ -173,3 +173,9 @@ Property | equivalent | example
 `data-simplecopy-node` | `node:` | `<button data-simplecopy-target="<selector>" data-simplecopy-node="true">Copy</button>`
 `data-simplecopy-multiple` | `multiple:` | `<button data-simplecopy-target="<selector>" data-simplecopy-multiple=";">Copy</button>`
 `data-simplecopy-data` | `SimpleCopy.data(<text>)` | `<button data-simplecopy-data="<text>">Copy</button>`
+
+## Browser Support
+
+![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![IE9+](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png)
+--- | --- | --- | --- | --- | ---
+Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 10+ ✔ | 9+ ✔

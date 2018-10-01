@@ -1,5 +1,5 @@
 /*
- * simple-copy.js 0.4.3
+ * simple-copy.js 0.4.4
  *
  * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -9,12 +9,12 @@
 (function (w, d) {
     "use strict";
 
-    var txt, m = w.Element && w.Element.prototype,
-        selection = w.getSelection(),
+    var selection = w.getSelection(),
         prefix = "data-simplecopy-",
         ignore = "script,noscript,object,link,img",
         body = d.body,
-        docEl;
+        docEl,
+        txt;
 
     function copyWithoutFormat(target)
     {
@@ -34,6 +34,14 @@
 
     function copyElement(target, select, text, node, multiple)
     {
+        if (typeof target === "string") {
+            try {
+                target = d.querySelector(target);
+            } catch (ee) {}
+        }
+
+        if (!target || target.nodeType !== 1) return;
+
         var isForm = typeof target.form === "object";
 
         if (text && !isForm) return copyWithoutFormat(target);
@@ -108,7 +116,8 @@
 
     function attr(el, option, value)
     {
-        return value ? el.getAttribute(prefix + option) : el.matches('[' + prefix + option + '="true"]');
+        var data = el.getAttribute(prefix + option);
+        return value ? data : data === "true";
     }
 
     function mainEvents(e)
@@ -142,15 +151,5 @@
             copyElement(target, false, opts.text, opts.node, opts.multiple);
         },
         "data": copyText
-    };
-
-    if (!m || m.matches) return;
-
-    m.matches = m.matchesSelector || m.mozMatchesSelector || m.msMatchesSelector ||
-    m.oMatchesSelector || m.webkitMatchesSelector || function (query) {
-        var m = (this.document || this.ownerDocument).querySelectorAll(query), i = m.length;
-
-        while (--i >= 0 && m[i] !== this);
-        return i > -1;
     };
 })(window, document);
