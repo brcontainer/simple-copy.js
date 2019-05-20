@@ -1,20 +1,17 @@
 /*
- * simple-copy.js 0.4.4
+ * simple-copy.js 0.4.5
  *
- * Copyright (c) 2018 Guilherme Nascimento (brcontainer@yahoo.com.br)
+ * Copyright (c) 2019 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
 
-(function (w, d) {
+(function (w, d, u) {
     "use strict";
 
     var selection = w.getSelection(),
         prefix = "data-simplecopy-",
-        ignore = "script,noscript,object,link,img",
-        body = d.body,
-        docEl,
-        txt;
+        ignore = "script,noscript,object,link,img";
 
     function copyWithoutFormat(target)
     {
@@ -93,30 +90,32 @@
 
     function copyText(text)
     {
-        docEl = docEl || (d.scrollingElement ? d.scrollingElement : d.body);
-
-        var x = docEl.scrollLeft,
+        var docEl = d.scrollingElement ? d.scrollingElement : d.body,
+            txt = d.createElement("textarea"),
+            x = docEl.scrollLeft,
             y = docEl.scrollTop;
 
-        txt = txt || d.createElement("textarea");
-        txt.style.cssText = 'position:absolute;left:' + x + 'px;top:' + y + 'px;opacity:0';
+        txt.style.cssText = "position:absolute;left:" + x + "px;top:" + y + "px;opacity:0";
         txt.value = text;
 
-        body.appendChild(txt);
+        d.body.appendChild(txt);
 
         selectField(txt);
 
         d.execCommand("copy");
 
-        body.removeChild(txt);
+        d.body.removeChild(txt);
 
         docEl.scrollLeft = x;
         docEl.scrollTop = y;
+
+        docEl = txt = u;
     }
 
     function attr(el, option, value)
     {
         var data = el.getAttribute(prefix + option);
+
         return value ? data : data === "true";
     }
 
@@ -144,10 +143,12 @@
     w.SimpleCopy = {
         "select": function (target, opts) {
             opts = opts || {};
+
             copyElement(target, true, false, opts.node);
         },
         "copy": function (target, opts) {
             opts = opts || {};
+
             copyElement(target, false, opts.text, opts.node, opts.multiple);
         },
         "data": copyText
