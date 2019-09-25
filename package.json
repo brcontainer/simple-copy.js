@@ -1,0 +1,22 @@
+{
+    "name": "simple-copy.js",
+    "version": "0.4.7",
+    "description": "Copy DOM, textarea or fields values to clipboard, no Flash, only 1.81kB minified (0.98kB gzipped)",
+    "main": "simple-copy.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/brcontainer/simple-copy.js"
+    },
+    "keywords": [
+        "clipboard", "copy", "paste", "selection", "dom", "simple", "browser"
+    ],
+    "author": "Guilherme Nascimento (brcontainer@yahoo.com.br)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/brcontainer/simple-copy.js/issues"
+    },
+    "homepage": "https://github.com/brcontainer/simple-copy.js#readme"
+}
