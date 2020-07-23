@@ -1,7 +1,7 @@
 /*
- * simple-copy.js 0.4.7
+ * simple-copy.js 0.4.8
  *
- * Copyright (c) 2019 Guilherme Nascimento (brcontainer@yahoo.com.br)
+ * Copyright (c) 2020 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
@@ -80,6 +80,8 @@
         if (hack) target.contentEditable = isEditable ? true : "inherit";
 
         selection.removeAllRanges();
+
+        target.blur();
     }
 
     function selectField(target)

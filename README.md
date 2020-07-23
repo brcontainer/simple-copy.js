@@ -10,6 +10,12 @@ Include lib
 <script src="simple-copy.min.js"></script>
 ```
 
+Or use CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/simple-copy.js@0.4/simple-copy.min.js"></script>
+```
+
 ## Usage
 
 Copying content from a element using selector:
