@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>simple-copy.js data attribute</title>
+    <title>simple-copy.js</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
 </head>
 <body>
+    <h1>Multiple examples</h1>
+
     <div class="foo" contenteditable>
         Hello, <strong>world</strong>! <u>foo</u> <i>bar</i> <s>baz</s>
     </div>
@@ -73,7 +76,11 @@
         <button data-simplecopy-target=".bar > select" data-simplecopy-select="true">Select &lt;select&gt;</button>
     </div>
 
+    <div class="paste-here">
+        <div contenteditable="true"></div>
+    </div>
+
     <link rel="stylesheet" type="text/css" href="example.css">
-    <script type="text/javascript" src="../simple-copy.js"></script>
+    <script type="text/javascript" src="../simple-copy.min.js"></script>
 </body>
 </html>

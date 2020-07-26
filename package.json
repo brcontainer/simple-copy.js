@@ -1,7 +1,7 @@
 {
     "name": "simple-copy.js",
-    "version": "0.4.8",
-    "description": "Copy DOM, textarea or fields values to clipboard, no Flash, only 1.81kB minified (0.98kB gzipped)",
+    "version": "0.4.9",
+    "description": "Copy DOM, textarea or fields values to clipboard, no Flash, only 2.3kB minified (1.14kB gzipped)",
     "main": "simple-copy.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +18,11 @@
     "bugs": {
         "url": "https://github.com/brcontainer/simple-copy.js/issues"
     },
-    "homepage": "https://github.com/brcontainer/simple-copy.js#readme"
+    "homepage": "https://github.com/brcontainer/simple-copy.js#readme",
+    "eslintConfig": {
+        "env": {
+            "browser": true,
+            "node": true
+        }
+    }
 }

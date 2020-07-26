@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>simple-copy.js data attribute</title>
+    <title>data-simplecopy-* attributes - simple-copy.js</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
 </head>
 <body>
+    <h1><code>data-simplecopy-*</code> attributes</h1>
+
     <div class="foo">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ullamcorper ex et tempus placerat.
     Nulla quis tortor dui. Curabitur finibus magna a tortor fermentum, eu hendrerit lorem congue.
@@ -30,17 +33,33 @@
         <button data-simplecopy-target="body > .bar">Copy from body > .bar</button>
         <button data-simplecopy-target="[class~=baz] textarea">Copy from [class~=baz] textarea</button>
 
+        <code class="source">
+        <p>&lt;button data-simplecopy-target="selector">...&lt;button></p>
+        </code>
+        <hr>
+
         <button data-simplecopy-target=".foo" data-simplecopy-text="true">Copy from .foo (without HTML format)</button>
         <button data-simplecopy-target="body > .bar" data-simplecopy-text="true">Copy from .bar (without HTML format)</button>
 
-        <br>
+        <code class="source">
+        <p>&lt;button data-simplecopy-target="selector" data-simplecopy-text="true">...&lt;button></p>
+        </code>
+        <hr>
 
         <button data-simplecopy-target=".foo" data-simplecopy-select="true">Select from .foo</button>
         <button data-simplecopy-target="body > .bar" data-simplecopy-select="true">Select from body > .bar</button>
         <button data-simplecopy-target="[class~=baz] textarea" data-simplecopy-select="true">Select from [class~=baz] textarea</button>
+
+        <code class="source">
+        <p>&lt;button data-simplecopy-target="selector" data-simplecopy-select="true">...&lt;button></p>
+        </code>
+    </div>
+
+    <div class="paste-here">
+        <div contenteditable="true"></div>
     </div>
 
     <link rel="stylesheet" type="text/css" href="example.css">
-    <script type="text/javascript" src="../simple-copy.js"></script>
+    <script type="text/javascript" src="../simple-copy.min.js"></script>
 </body>
 </html>

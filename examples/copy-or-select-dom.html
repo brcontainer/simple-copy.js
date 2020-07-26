@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>simple-copy.js DOM</title>
+    <title>Copy or select DOM - simple-copy.js</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
 </head>
 <body>
+    <h1>Copy or select DOM - simple-copy.js</h1>
+
     <div class="foo">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ullamcorper ex et tempus placerat.
     Nulla quis tortor dui. Curabitur finibus magna a tortor fermentum, eu hendrerit lorem congue.
@@ -20,19 +23,37 @@
 
     <div class="foobar">
         <button class="copy-btn">Copy</button>
+
+        <code class="source">
+        <p>var element = d.querySelector(".foo");</p>
+        <p>SimpleCopy.copy(element);</p>
+        </code>
+        <hr>
+
         <button class="select-btn">Select</button>
+
+        <code class="source">
+        <p>var element = d.querySelector(".foo");</p>
+        <p>SimpleCopy.select(element);</p>
+        </code>
+    </div>
+
+    <div class="paste-here">
+        <div contenteditable="true"></div>
     </div>
 
     <link rel="stylesheet" type="text/css" href="example.css">
-    <script type="text/javascript" src="../simple-copy.js"></script>
+    <script type="text/javascript" src="../simple-copy.min.js"></script>
     <script type="text/javascript">
     (function (d) {
         d.querySelector(".copy-btn").onclick = function () {
-            SimpleCopy.copy(d.querySelector(".foo"));
+            var element = d.querySelector(".foo");
+            SimpleCopy.copy(element);
         };
 
         d.querySelector(".select-btn").onclick = function () {
-            SimpleCopy.select(d.querySelector(".foo"));
+            var element = d.querySelector(".foo");
+            SimpleCopy.select(element);
         };
     })(document);
     </script>

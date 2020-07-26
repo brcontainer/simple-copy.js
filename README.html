@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><style>body {
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>body {
   max-width: 980px;
   border: 1px solid #ddd;
   outline: 1300px solid #fff;
@@ -841,7 +841,7 @@ body .markdown-body
     inset 0 -12px 0 rgba(0, 0, 0, .05);
 }
 
-/* Multimarkdown Critic Blocks */
+/* MultiMarkdown Critic Blocks */
 .markdown-body .critic_mark {
   background: #ff0;
 }
@@ -992,7 +992,7 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><style>/*github*/
+</style><style>/*GitHub*/
 .codehilite {background-color:#fff;color:#333333;}
 .codehilite .hll {background-color:#ffffcc;}
 .codehilite .c{color:#999988;font-style:italic}
@@ -1056,10 +1056,18 @@ body .markdown-body
 .codehilite .il{color:#009999}
 .codehilite .gc{color:#999;background-color:#EAF2F5}
 </style><title>README</title></head><body><article class="markdown-body"><h2 id="simple-copyjs">simple-copy.js<a class="headerlink" href="#simple-copyjs" title="Permanent link"></a></h2>
-<p>Copy DOM, textarea or fields values to clipboard, no Flash, only 1.75kB minified (0.95kB gzipped).</p>
+<p>Copy DOM, textarea or fields values to clipboard, no Flash, only 2.3kB minified (1.14kB gzipped).</p>
 <h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link"></a></h3>
 <p>Include lib</p>
 <div class="codehilite"><pre><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;simple-copy.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+
+<p>Or use CDN:</p>
+<div class="codehilite"><pre><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/simple-copy.js@0.4/simple-copy.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+
+<p>Import (Angular/Vue-cli):</p>
+<div class="codehilite"><pre><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">SimpleCopy</span> <span class="nx">from</span> <span class="s1">&#39;simple-copy.js&#39;</span>
 </pre></div>
 
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link"></a></h2>
@@ -1219,6 +1227,7 @@ body .markdown-body
 <th>Property</th>
 <th>equivalent</th>
 <th>example</th>
+<th>description</th>
 </tr>
 </thead>
 <tbody>
@@ -1226,31 +1235,43 @@ body .markdown-body
 <td><code>data-simplecopy-target</code></td>
 <td>-</td>
 <td><code>&lt;button data-simplecopy-target="&lt;selector&gt;"&gt;Copy&lt;/button&gt;</code></td>
+<td>-</td>
 </tr>
 <tr>
 <td><code>data-simplecopy-select</code></td>
 <td><code>SimpleCopy.select(&lt;selector&gt;)</code></td>
 <td><code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-select="true"&gt;Copy&lt;/button&gt;</code></td>
+<td>-</td>
 </tr>
 <tr>
 <td><code>data-simplecopy-text</code></td>
 <td><code>text:</code></td>
 <td><code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-text="true"&gt;Copy&lt;/button&gt;</code></td>
+<td>-</td>
 </tr>
 <tr>
 <td><code>data-simplecopy-node</code></td>
 <td><code>node:</code></td>
 <td><code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-node="true"&gt;Copy&lt;/button&gt;</code></td>
+<td>-</td>
 </tr>
 <tr>
 <td><code>data-simplecopy-multiple</code></td>
 <td><code>multiple:</code></td>
 <td><code>&lt;button data-simplecopy-target="&lt;selector&gt;" data-simplecopy-multiple=";"&gt;Copy&lt;/button&gt;</code></td>
+<td>-</td>
 </tr>
 <tr>
 <td><code>data-simplecopy-data</code></td>
 <td><code>SimpleCopy.data(&lt;text&gt;)</code></td>
 <td><code>&lt;button data-simplecopy-data="&lt;text&gt;"&gt;Copy&lt;/button&gt;</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>simple-copy-ignore</code></td>
+<td>-</td>
+<td><code>&lt;element data-simplecopy-ignore="true"&gt;.....&lt;/element&gt;</code></td>
+<td>Ignore element if parents elements has <code>data-simplecopy-text</code> or if uses <code>SimpleCopy.copy(target, { "text": true });</code></td>
 </tr>
 </tbody>
 </table>

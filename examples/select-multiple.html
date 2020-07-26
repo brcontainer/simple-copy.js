@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>simple-copy.js DOM</title>
+    <title>Copy content from multiple values in &lt;select multiple&gt; - simple-copy.js</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
 </head>
 <body>
+    <h1>
+        Copy content from multiple values in <code>&lt;select multiple&gt;</code>
+    </h1>
+
     <div class="foobar">
         <select multiple>
             <option value="foo" selected>Foo</option>
@@ -18,9 +23,17 @@
 
         <button data-simplecopy-target=".foobar > select"
                 data-simplecopy-multiple="|">Copy multiple values</button>
+
+        <code class="source">
+        <p>&lt;button data-simplecopy-target="selector" data-simplecopy-multiple="|">...&lt;button></p>
+        </code>
+    </div>
+
+    <div class="paste-here">
+        <div contenteditable="true"></div>
     </div>
 
     <link rel="stylesheet" type="text/css" href="example.css">
-    <script type="text/javascript" src="../simple-copy.js"></script>
+    <script type="text/javascript" src="../simple-copy.min.js"></script>
 </body>
 </html>

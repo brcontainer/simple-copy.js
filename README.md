@@ -1,6 +1,6 @@
 ## simple-copy.js
 
-Copy DOM, textarea or fields values to clipboard, no Flash, only 1.75kB minified (0.95kB gzipped).
+Copy DOM, textarea or fields values to clipboard, no Flash, only 2.3kB minified (1.14kB gzipped).
 
 ### Setup
 
@@ -14,6 +14,12 @@ Or use CDN:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/simple-copy.js@0.4/simple-copy.min.js"></script>
+```
+
+Import (Angular/Vue-cli):
+
+```javascript
+import * as SimpleCopy from 'simple-copy.js'
 ```
 
 ## Usage
@@ -171,14 +177,15 @@ Property | type | default | description
 
 ### HTML5 data attribute
 
-Property | equivalent | example
---- | --- | ---
-`data-simplecopy-target` | - | `<button data-simplecopy-target="<selector>">Copy</button>`
-`data-simplecopy-select` | `SimpleCopy.select(<selector>)` | `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>`
-`data-simplecopy-text` | `text:` | `<button data-simplecopy-target="<selector>" data-simplecopy-text="true">Copy</button>`
-`data-simplecopy-node` | `node:` | `<button data-simplecopy-target="<selector>" data-simplecopy-node="true">Copy</button>`
-`data-simplecopy-multiple` | `multiple:` | `<button data-simplecopy-target="<selector>" data-simplecopy-multiple=";">Copy</button>`
-`data-simplecopy-data` | `SimpleCopy.data(<text>)` | `<button data-simplecopy-data="<text>">Copy</button>`
+Property | equivalent | example | description
+--- | --- | --- | ---
+`data-simplecopy-target` | - | `<button data-simplecopy-target="<selector>">Copy</button>` | -
+`data-simplecopy-select` | `SimpleCopy.select(<selector>)` | `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>` | -
+`data-simplecopy-text` | `text:` | `<button data-simplecopy-target="<selector>" data-simplecopy-text="true">Copy</button>` | -
+`data-simplecopy-node` | `node:` | `<button data-simplecopy-target="<selector>" data-simplecopy-node="true">Copy</button>` | -
+`data-simplecopy-multiple` | `multiple:` | `<button data-simplecopy-target="<selector>" data-simplecopy-multiple=";">Copy</button>` | -
+`data-simplecopy-data` | `SimpleCopy.data(<text>)` | `<button data-simplecopy-data="<text>">Copy</button>` | -
+`simple-copy-ignore` | - | `<element data-simplecopy-ignore="true">.....</element>` | Ignore element if parents elements has `data-simplecopy-text` or if uses `SimpleCopy.copy(target, { "text": true });`
 
 ## Browser Support
 

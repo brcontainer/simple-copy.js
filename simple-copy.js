@@ -1,5 +1,5 @@
 /*
- * simple-copy.js 0.4.8
+ * simple-copy.js 0.4.9
  *
  * Copyright (c) 2020 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -10,13 +10,41 @@
     "use strict";
 
     var selection = w.getSelection(),
+        tmpDoc = d.implementation.createHTMLDocument(""),
         prefix = "data-simplecopy-",
-        ignore = "script,noscript,object,link,img";
+        ignore = "script,noscript,object,link,img,[simple-copy-ignore=true]";
+
+    function isInvisible(el)
+    {
+        return (
+            el.hasAttribute("simple-copy-ignore") !== "true" &&
+            !el.offsetWidth &&
+            !el.offsetHeight &&
+            !el.getClientRects().length
+        );
+    }
 
     function copyWithoutFormat(target)
     {
-        var tmpDoc = d.implementation.createHTMLDocument("");
+        var els = target.getElementsByTagName("*"),
+            restore = [];
+
+        for (var i = els.length - 1; i >= 0; i--) {
+            var el = els[i];
+
+            if (isInvisible(el)) {
+                el.setAttribute("simple-copy-ignore", "true");
+                restore.push(el);
+            }
+        }
+
         tmpDoc.body.innerHTML = target.innerHTML;
+
+        for (var i = restore.length - 1; i >= 0; i--) {
+            restore[i].removeAttribute("simple-copy-ignore");
+        }
+
+        restore = u;
 
         for (var j = tmpDoc.querySelectorAll(ignore), i = j.length - 1; i >= 0; i--) {
             var el = j[i];
@@ -24,9 +52,7 @@
             if (el && el.parentNode) el.parentNode.removeChild(el);
         }
 
-        copyText(tmpDoc.body.textContent);
-
-        tmpDoc = null;
+        return copyText(tmpDoc.body.textContent);
     }
 
     function copyElement(target, select, text, node, multiple)
@@ -34,18 +60,22 @@
         if (typeof target === "string") {
             try {
                 target = d.querySelector(target);
-            } catch (ee) {}
+            } catch (ee) {
+                return false;
+            }
         }
 
-        if (!target || target.nodeType !== 1) return;
+        console.log(target);
+
+        if (!target || target.nodeType !== 1) return false;
 
         var isForm = typeof target.form === "object";
 
         if (text && !isForm) return copyWithoutFormat(target);
 
         var range = d.createRange(),
-            isEditable = target.isContentEditable,
-            hack = !select && !isForm;
+            hack = !select && !isForm,
+            isEditable = target.isContentEditable;
 
         selection.removeAllRanges();
 
@@ -75,13 +105,15 @@
 
         if (select) return;
 
-        d.execCommand("copy");
+        var response = d.execCommand("copy");
 
         if (hack) target.contentEditable = isEditable ? true : "inherit";
 
         selection.removeAllRanges();
 
         target.blur();
+
+        return response;
     }
 
     function selectField(target)
@@ -104,7 +136,7 @@
 
         selectField(txt);
 
-        d.execCommand("copy");
+        var response = d.execCommand("copy");
 
         d.body.removeChild(txt);
 
@@ -112,6 +144,8 @@
         docEl.scrollTop = y;
 
         docEl = txt = u;
+
+        return response;
     }
 
     function attr(el, option, value)
@@ -127,17 +161,20 @@
 
         var target, query, el = e.target, data = attr(el, "data", true);
 
-        if (data) return copyText(data);
+        if (data) {
+            tmpDoc.body.innerHTML = data;
+            copyElement(tmpDoc.body, false, true);
+        } else {
+            query = attr(el, "target", true);
 
-        query = attr(el, "target", true);
+            if (!query) return;
 
-        if (!query) return;
+            target = d.querySelector(query);
 
-        target = d.querySelector(query);
+            if (!target) return false;
 
-        if (!target) return false;
-
-        copyElement(target, attr(el, "select"), attr(el, "text"), attr(el, "node"), attr(el, "multiple", true));
+            copyElement(target, attr(el, "select"), attr(el, "text"), attr(el, "node"), attr(el, "multiple", true));
+        }
     }
 
     d.addEventListener("click", mainEvents);
@@ -146,13 +183,19 @@
         "select": function (target, opts) {
             opts = opts || {};
 
-            copyElement(target, true, false, opts.node);
+            return copyElement(target, true, false, opts.node);
         },
         "copy": function (target, opts) {
             opts = opts || {};
 
-            copyElement(target, false, opts.text, opts.node, opts.multiple);
+            return copyElement(target, false, opts.text, opts.node, opts.multiple);
         },
         "data": copyText
     };
+
+    // CommonJS
+    if (typeof exports !== 'undefined') exports.SimpleCopy = w.SimpleCopy;
+
+    // RequireJS
+    if (typeof define !== 'undefined') define(function () { return w.SimpleCopy; });
 })(window, document);

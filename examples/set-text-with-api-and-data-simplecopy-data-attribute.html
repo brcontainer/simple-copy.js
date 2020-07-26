@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Set text with API and data-simplecopy-data attribute - simple-copy.js DOM</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <h1>Set text with API and data-simplecopy-data attribute</h1>
+
+    <div class="foobar">
+        <button class="copy-btn">Copy text from event</button>
+
+        <code class="source">
+        <p>SimpleCopy.data("Hello, world! (from API)");</p>
+        </code>
+        <hr>
+
+        <button class="copy-btn-2">Copy text from event (with break line)</button>
+
+        <code class="source">
+        <p>SimpleCopy.data("Hello, world! (from API)\nbreak\nend");</p>
+        </code>
+        <hr>
+
+        <button data-simplecopy-data="Hello, world! (from data attribute)">
+        Copy text from data attribute
+        </button>
+
+        <code class="source">
+        <p>&lt;button data-simplecopy-data="Hello, world! (from data attribute)">...&lt;button></p>
+        </code>
+        <hr>
+
+        <button data-simplecopy-data="Hello, world! (from data attribute)&amp;#10;break&amp;#10;end">
+        Copy text from data attribute (with break line)
+        </button>
+
+        <code class="source">
+        <p>&lt;button data-simplecopy-data="Hello, world! (from data attribute)&amp;#10;break&amp;#10;end>...&lt;button></p>
+        </code>
+    </div>
+
+    <div class="paste-here">
+        <div contenteditable="true"></div>
+    </div>
+
+    <link rel="stylesheet" type="text/css" href="example.css">
+    <script type="text/javascript" src="../simple-copy.min.js"></script>
+    <script type="text/javascript">
+    (function (d) {
+        d.querySelector(".copy-btn").onclick = function () {
+            SimpleCopy.data("Hello, world! (from API)");
+        };
+
+        d.querySelector(".copy-btn-2").onclick = function () {
+            SimpleCopy.data("Hello, world! (from API)\nbreak\nend");
+        };
+    })(document);
+    </script>
+</body>
+</html>
