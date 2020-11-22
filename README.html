@@ -1066,8 +1066,18 @@ body .markdown-body
 <div class="codehilite"><pre><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/simple-copy.js@0.4/simple-copy.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 
-<p>Import (Angular/Vue-cli):</p>
-<div class="codehilite"><pre><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">SimpleCopy</span> <span class="nx">from</span> <span class="s1">&#39;simple-copy.js&#39;</span>
+<p>Import:</p>
+<div class="codehilite"><pre><span class="kr">const</span> <span class="nx">SimpleCopy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;simple-copy.js&#39;</span><span class="p">);</span>
+</pre></div>
+
+<p>Import ES6 (and &ldquo;libs&rdquo; like Angular/Vue-cli):</p>
+<div class="codehilite"><pre><span class="kr">import</span> <span class="nx">SimpleCopy</span> <span class="nx">from</span> <span class="s1">&#39;simple-copy.js&#39;</span>
+</pre></div>
+
+<p>RequireJS:</p>
+<div class="codehilite"><pre><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;folder/foo/bar/simple-copy&#39;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">SimpleCopy</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
 </pre></div>
 
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link"></a></h2>
@@ -1272,6 +1282,49 @@ body .markdown-body
 <td>-</td>
 <td><code>&lt;element data-simplecopy-ignore="true"&gt;.....&lt;/element&gt;</code></td>
 <td>Ignore element if parents elements has <code>data-simplecopy-text</code> or if uses <code>SimpleCopy.copy(target, { "text": true });</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="jquery-clipboard-api">jQuery clipboard API<a class="headerlink" href="#jquery-clipboard-api" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$("&lt;selector&gt;").simpleCopy("copy")</code></td>
+<td><code>SimpleCopy.copy("&lt;selector&gt;")</code></td>
+</tr>
+<tr>
+<td><code>$(element).simpleCopy("copy")</code></td>
+<td><code>SimpleCopy.copy(element)</code></td>
+</tr>
+<tr>
+<td><code>$("&lt;selector&gt;").simpleCopy("copy", { "text": true })</code></td>
+<td><code>SimpleCopy.copy("&lt;selector&gt;", { "text": true })</code></td>
+</tr>
+<tr>
+<td><code>$("&lt;selector&gt;").simpleCopy("copy", { "node": true })</code></td>
+<td><code>SimpleCopy.copy("&lt;selector&gt;", { "node": true })</code></td>
+</tr>
+<tr>
+<td><code>$("&lt;selector&gt;").simpleCopy("copy", { "multiple": ";" })</code></td>
+<td><code>SimpleCopy.copy("&lt;selector&gt;", { "multiple": ";" })</code></td>
+</tr>
+<tr>
+<td><code>$("&lt;selector&gt;").simpleCopy("select")</code></td>
+<td><code>SimpleCopy.select("&lt;selector&gt;")</code></td>
+</tr>
+<tr>
+<td><code>$(element).simpleCopy("select")</code></td>
+<td><code>SimpleCopy.select(element)</code></td>
+</tr>
+<tr>
+<td><code>$("&lt;selector&gt;").simpleCopy("select", { "node": true })</code></td>
+<td><code>SimpleCopy.select("&lt;selector&gt;", { "node": true })</code></td>
 </tr>
 </tbody>
 </table>

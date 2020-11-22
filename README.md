@@ -16,10 +16,24 @@ Or use CDN:
 <script src="https://cdn.jsdelivr.net/npm/simple-copy.js@0.4/simple-copy.min.js"></script>
 ```
 
-Import (Angular/Vue-cli):
+Import:
 
 ```javascript
-import * as SimpleCopy from 'simple-copy.js'
+const SimpleCopy = require('simple-copy.js');
+```
+
+Import ES6 (and "libs" like Angular/Vue-cli):
+
+```javascript
+import SimpleCopy from 'simple-copy.js'
+```
+
+RequireJS:
+
+```javascript
+define(['folder/foo/bar/simple-copy'], function (SimpleCopy) {
+    ...
+});
 ```
 
 ## Usage
@@ -186,6 +200,19 @@ Property | equivalent | example | description
 `data-simplecopy-multiple` | `multiple:` | `<button data-simplecopy-target="<selector>" data-simplecopy-multiple=";">Copy</button>` | -
 `data-simplecopy-data` | `SimpleCopy.data(<text>)` | `<button data-simplecopy-data="<text>">Copy</button>` | -
 `simple-copy-ignore` | - | `<element data-simplecopy-ignore="true">.....</element>` | Ignore element if parents elements has `data-simplecopy-text` or if uses `SimpleCopy.copy(target, { "text": true });`
+
+### jQuery clipboard API
+
+Method | Equivalent |
+--- | ---
+`$("<selector>").simpleCopy("copy")` | `SimpleCopy.copy("<selector>")`
+`$(element).simpleCopy("copy")` | `SimpleCopy.copy(element)`
+`$("<selector>").simpleCopy("copy", { "text": true })` | `SimpleCopy.copy("<selector>", { "text": true })`
+`$("<selector>").simpleCopy("copy", { "node": true })` | `SimpleCopy.copy("<selector>", { "node": true })`
+`$("<selector>").simpleCopy("copy", { "multiple": ";" })` | `SimpleCopy.copy("<selector>", { "multiple": ";" })`
+`$("<selector>").simpleCopy("select")` | `SimpleCopy.select("<selector>")`
+`$(element).simpleCopy("select")` | `SimpleCopy.select(element)`
+`$("<selector>").simpleCopy("select", { "node": true })` | `SimpleCopy.select("<selector>", { "node": true })`
 
 ## Browser Support
 

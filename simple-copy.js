@@ -1,15 +1,18 @@
 /*
- * simple-copy.js 0.4.9
+ * simple-copy.js 0.5.0
  *
  * Copyright (c) 2020 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
 
-(function (w, d, u) {
+(function (u) {
     "use strict";
 
-    var selection = w.getSelection(),
+    var w = typeof window !== "undefined" ? window : {},
+        d = w.document ? w.document : {},
+        $ = w.jQuery,
+        selection = w.getSelection(),
         tmpDoc = d.implementation.createHTMLDocument(""),
         prefix = "data-simplecopy-",
         ignore = "script,noscript,object,link,img,[simple-copy-ignore=true]";
@@ -64,8 +67,6 @@
                 return false;
             }
         }
-
-        console.log(target);
 
         if (!target || target.nodeType !== 1) return false;
 
@@ -179,7 +180,7 @@
 
     d.addEventListener("click", mainEvents);
 
-    w.SimpleCopy = {
+    var main = {
         "select": function (target, opts) {
             opts = opts || {};
 
@@ -193,9 +194,25 @@
         "data": copyText
     };
 
+    if ($ && $.extend) {
+        $.fn.simpleCopy = function (opts) {
+            var target = this[0];
+
+            if (!target) return;
+
+            if (!opts) opts = {};
+
+            if (opts.type === u) action = "copy";
+
+            if (action === "copy" || action === "select") SimpleCopy[action](target, opts);
+        };
+    }
+
+    w.SimpleCopy = main;
+
     // CommonJS
-    if (typeof exports !== 'undefined') exports.SimpleCopy = w.SimpleCopy;
+    if (typeof module !== "undefined" && module.exports) module.exports = main;
 
     // RequireJS
-    if (typeof define !== 'undefined') define(function () { return w.SimpleCopy; });
-})(window, document);
+    if (typeof define !== "undefined") define(function () { return main; });
+})();
