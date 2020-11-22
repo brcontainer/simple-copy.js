@@ -31,7 +31,7 @@ import SimpleCopy from 'simple-copy.js'
 RequireJS:
 
 ```javascript
-define(['folder/foo/bar/simple-copy'], function (SimpleCopy) {
+requirejs(['folder/foo/bar/simple-copy'], function (SimpleCopy) {
     ...
 });
 ```
