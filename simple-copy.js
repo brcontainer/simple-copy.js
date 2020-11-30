@@ -1,5 +1,5 @@
 /*
- * simple-copy.js 0.5.0
+ * simple-copy.js 0.5.1
  *
  * Copyright (c) 2020 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -10,10 +10,10 @@
     "use strict";
 
     var w = typeof window !== "undefined" ? window : {},
-        d = w.document ? w.document : {},
+        d = w.document || {},
         $ = w.jQuery,
         selection = w.getSelection(),
-        tmpDoc = d.implementation.createHTMLDocument(""),
+        tmpBody = d.implementation.createHTMLDocument("").body,
         prefix = "data-simplecopy-",
         ignore = "script,noscript,object,link,img,[simple-copy-ignore=true]";
 
@@ -41,7 +41,7 @@
             }
         }
 
-        tmpDoc.body.innerHTML = target.innerHTML;
+        tmpBody.innerHTML = target.innerHTML;
 
         for (var i = restore.length - 1; i >= 0; i--) {
             restore[i].removeAttribute("simple-copy-ignore");
@@ -55,7 +55,7 @@
             if (el && el.parentNode) el.parentNode.removeChild(el);
         }
 
-        return copyText(tmpDoc.body.textContent);
+        return copyText(tmpBody.textContent);
     }
 
     function copyElement(target, select, text, node, multiple)
@@ -125,7 +125,7 @@
 
     function copyText(text)
     {
-        var docEl = d.scrollingElement ? d.scrollingElement : d.body,
+        var docEl = d.scrollingElement || d.body,
             txt = d.createElement("textarea"),
             x = docEl.scrollLeft,
             y = docEl.scrollTop;
@@ -163,8 +163,9 @@
         var target, query, el = e.target, data = attr(el, "data", true);
 
         if (data) {
-            tmpDoc.body.innerHTML = data;
-            copyElement(tmpDoc.body, false, true);
+            tmpBody.innerHTML = data;
+
+            copyElement(tmpBody, false, true);
         } else {
             query = attr(el, "target", true);
 
@@ -204,7 +205,7 @@
 
             if (opts.type === u) action = "copy";
 
-            if (action === "copy" || action === "select") SimpleCopy[action](target, opts);
+            if (action === "copy" || action === "select") main[action](target, opts);
         };
     }
 

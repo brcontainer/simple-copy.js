@@ -1,6 +1,6 @@
 {
     "name": "simple-copy.js",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "description": "Copy DOM, textarea or fields values to clipboard, no Flash, only 2.3kB minified (1.14kB gzipped)",
     "main": "simple-copy.js",
     "scripts": {
