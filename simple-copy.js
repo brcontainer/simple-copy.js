@@ -1,7 +1,7 @@
 /*
- * simple-copy.js 0.5.1
+ * simple-copy.js 0.5.2
  *
- * Copyright (c) 2020 Guilherme Nascimento (brcontainer@yahoo.com.br)
+ * Copyright (c) 2021 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
@@ -173,9 +173,9 @@
 
             target = d.querySelector(query);
 
-            if (!target) return false;
-
-            copyElement(target, attr(el, "select"), attr(el, "text"), attr(el, "node"), attr(el, "multiple", true));
+            if (target) {
+                copyElement(target, attr(el, "select"), attr(el, "text"), attr(el, "node"), attr(el, "multiple", true));
+            }
         }
     }
 

@@ -13,7 +13,7 @@ Include lib
 Or use CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/simple-copy.js@0.4/simple-copy.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-copy.js@0.5/simple-copy.min.js"></script>
 ```
 
 Import:
