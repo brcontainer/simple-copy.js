@@ -7,25 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-    <h1>Copy or select DOM - simple-copy.js</h1>
+    <h1>Copy or select into &lt;iframe&gt; - simple-copy.js</h1>
 
-    <div class="foo">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ullamcorper ex et tempus placerat.
-    Nulla quis tortor dui. Curabitur finibus magna a tortor fermentum, eu hendrerit lorem congue.
-    Nam non enim ac eros ultricies ullamcorper. Sed porttitor ligula ex, iaculis dictum leo blandit sed.
-    Maecenas eu vestibulum felis, eu <strong>clipboard</strong> urna. Duis varius mi libero, sed vulputate lorem laoreet et.
-    Sed eleifend iaculis congue. Sed non mattis nulla. Suspendisse dignissim neque urna, quis porta metus molestie tristique.
-    Integer id nulla tortor. Curabitur odio metus, aliquet ac malesuada <i>copy</i>, porta pretium risus.
-    Aenean sit amet lobortis quam, sit amet congue sapien.
-    Pellentesque habitant morbi tristique senectus et netus et <s>Flash</s> fames ac turpis egestas.
-    Fusce pulvinar fermentum ligula scelerisque interdum.
+    <div class="parent-iframe">
+        <iframe src="_iframe.html" id="iframe"></iframe>
     </div>
 
     <div class="foobar">
         <button class="copy-btn">Copy</button>
 
         <code class="source">
-        <p>var element = d.querySelector(".foo");</p>
+        <p>var element = document.getElementById("iframe").contentDocument.querySelector(".foo");</p>
         <p>SimpleCopy.copy(element);</p>
         </code>
         <hr>
@@ -47,12 +39,14 @@
     <script type="text/javascript">
     (function (d) {
         d.querySelector(".copy-btn").onclick = function () {
-            var element = d.querySelector(".foo");
+            var doc = document.getElementById("iframe").contentWindow.document;
+            var element = doc.querySelector(".foo");
             SimpleCopy.copy(element);
         };
 
         d.querySelector(".select-btn").onclick = function () {
-            var element = d.querySelector(".foo");
+            var doc = document.getElementById("iframe").contentWindow.document;
+            var element = doc.querySelector(".foo");
             SimpleCopy.select(element);
         };
     })(document);

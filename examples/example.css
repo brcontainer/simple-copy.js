@@ -30,6 +30,23 @@ h1 {
     font-size: 16pt;
 }
 
+.parent-iframe {
+    resize: both;
+    margin: 3%;
+    width: 94%;
+    height: 200px;
+    min-width: 100px;
+    min-height: 100px;
+    overflow: hidden;
+    border: 1px solid #c1c1c1;
+}
+
+.parent-iframe > iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 button {
     background-color: #007bff;
     border-radius: 2px;
@@ -61,12 +78,12 @@ button:focus, button:active {
 
 .paste-here {
     margin: 1em;
-    border-radius: .4em;
+    border-radius: .2em;
     position: relative;
-    border: thin solid #0c0c0c;
+    border: thin solid #c1c1c1;
     background: rgb(245,239,241);
-    background: linear-gradient(0deg, rgba(245,239,241,1) 0%, rgba(214,209,209,1) 100%);
-    box-shadow: 0 0 35px rgba(0,0,0,.4) inset;
+    background: linear-gradient(0deg, rgba(245,239,241,.5) 0%, rgba(214,209,209,.5) 100%);
+    box-shadow: 0 0 5px rgba(0,0,0,.1) inset;
 }
 
 .paste-here:after {
@@ -75,8 +92,8 @@ button:focus, button:active {
     bottom: 10px;
     right: 10px;
     color: #fff;
-    border-radius: 50px;
-    padding: 5px 15px;
+    border-radius: 3px;
+    padding: 5px 10px;
     content: "paste here";
     text-transform: uppercase;
 }
@@ -94,7 +111,7 @@ button:focus, button:active {
 }
 
 .paste-here > div:focus {
-    box-shadow: 0 0 .08em .5em rgba(0,0,255,.2);
+    box-shadow: 0 0 .08em .4em rgba(0,0,255,.2);
 }
 
 code.source {

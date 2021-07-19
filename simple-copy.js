@@ -1,5 +1,5 @@
 /*
- * simple-copy.js 0.5.2
+ * simple-copy.js 0.5.3
  *
  * Copyright (c) 2021 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
@@ -12,7 +12,6 @@
     var w = typeof window !== "undefined" ? window : {},
         d = w.document || {},
         $ = w.jQuery,
-        selection = w.getSelection(),
         tmpBody = d.implementation.createHTMLDocument("").body,
         prefix = "data-simplecopy-",
         ignore = "script,noscript,object,link,img,[simple-copy-ignore=true]";
@@ -49,7 +48,7 @@
 
         restore = u;
 
-        for (var j = tmpDoc.querySelectorAll(ignore), i = j.length - 1; i >= 0; i--) {
+        for (var j = tmpBody.querySelectorAll(ignore), i = j.length - 1; i >= 0; i--) {
             var el = j[i];
 
             if (el && el.parentNode) el.parentNode.removeChild(el);
@@ -74,7 +73,9 @@
 
         if (text && !isForm) return copyWithoutFormat(target);
 
-        var range = d.createRange(),
+        var doc = target.ownerDocument,
+            selection = doc.defaultView.getSelection(),
+            range = doc.createRange(),
             hack = !select && !isForm,
             isEditable = target.isContentEditable;
 
@@ -106,7 +107,7 @@
 
         if (select) return;
 
-        var response = d.execCommand("copy");
+        var response = doc.execCommand("copy");
 
         if (hack) target.contentEditable = isEditable ? true : "inherit";
 
@@ -173,9 +174,7 @@
 
             target = d.querySelector(query);
 
-            if (target) {
-                copyElement(target, attr(el, "select"), attr(el, "text"), attr(el, "node"), attr(el, "multiple", true));
-            }
+            if (target) copyElement(target, attr(el, "select"), attr(el, "text"), attr(el, "node"), attr(el, "multiple", true));
         }
     }
 
