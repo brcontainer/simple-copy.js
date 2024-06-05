@@ -1,8 +1,8 @@
-## simple-copy.js
+# simple-copy.js
 
 Copy DOM, textarea or fields values to clipboard, no Flash, only 2.3kB minified (1.14kB gzipped).
 
-### Setup
+## Setup
 
 Include lib
 
@@ -14,6 +14,12 @@ Or use CDN:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/simple-copy.js@0.5/simple-copy.min.js"></script>
+```
+
+Install using NPM:
+
+```bash
+npm i simple-copy.js
 ```
 
 Import:
@@ -36,7 +42,7 @@ requirejs(['folder/foo/bar/simple-copy'], function (SimpleCopy) {
 });
 ```
 
-## Usage
+# Usage
 
 Copying content from a element using selector:
 
@@ -133,7 +139,7 @@ Set text in clipboard by data attribute:
 <button data-simplecopy-data="Hello, world!">Copy text</button>
 ```
 
-### Copying values from select[multiple]
+## Copying values from select[multiple]
 
 Using API for copy multiple values in `<select multiple></select>`:
 
@@ -165,7 +171,7 @@ You can use data attribute for copy multiple values in `<select multiple></selec
 >Copy</button>
 ```
 
-### API
+## API
 
 Method | Description
 --- | ---
@@ -189,7 +195,7 @@ Property | type | default | description
 `node:` | `bool` | `false` | If `true` copy entire node, if `false` copy node contents. Available in `SimpleCopy.copy` and `SimpleCopy.select`
 `multiple:` | `string` | `null` | This property is only used when copy `<select multiple>` only, if `multiple` is not defined only first option selected is setted in clipboard, if define a "separator" like `;` is setted in clipboard something like this: `foo;bar;baz` (for each selected option). Available only `SimpleCopy.copy`
 
-### HTML5 data attribute
+## HTML5 data attribute
 
 Property | equivalent | example | description
 --- | --- | --- | ---
@@ -201,7 +207,7 @@ Property | equivalent | example | description
 `data-simplecopy-data` | `SimpleCopy.data(<text>)` | `<button data-simplecopy-data="<text>">Copy</button>` | -
 `simple-copy-ignore` | - | `<element data-simplecopy-ignore="true">.....</element>` | Ignore element if parents elements has `data-simplecopy-text` or if uses `SimpleCopy.copy(target, { "text": true });`
 
-### jQuery clipboard API
+## jQuery clipboard API
 
 Method | Equivalent |
 --- | ---
@@ -214,7 +220,7 @@ Method | Equivalent |
 `$(element).simpleCopy("select")` | `SimpleCopy.select(element)`
 `$("<selector>").simpleCopy("select", { "node": true })` | `SimpleCopy.select("<selector>", { "node": true })`
 
-## Browser Support
+# Browser Support
 
 ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![IE9+](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png)
 --- | --- | --- | --- | --- | ---

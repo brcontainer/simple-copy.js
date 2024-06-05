@@ -1,6 +1,6 @@
 {
     "name": "simple-copy.js",
-    "version": "0.5.3",
+    "version": "0.5.4",
     "description": "Copy DOM, textarea or fields values to clipboard, no Flash, only 2.3kB minified (1.14kB gzipped)",
     "main": "simple-copy.js",
     "scripts": {
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/brcontainer/simple-copy.js"
+        "url": "git+https://github.com/brcontainer/simple-copy.js.git"
     },
     "keywords": [
         "clipboard",

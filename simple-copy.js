@@ -1,7 +1,7 @@
 /*
- * simple-copy.js 0.5.3
+ * simple-copy.js 0.5.4
  *
- * Copyright (c) 2021 Guilherme Nascimento (brcontainer@yahoo.com.br)
+ * Copyright (c) 2024 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
@@ -67,7 +67,7 @@
             }
         }
 
-        if (!target || target.nodeType !== 1) return false;
+        if (!target || target.nodeType !== 1) throw new Error('Invalid element: <' + target + '>');
 
         var isForm = typeof target.form === "object";
 
