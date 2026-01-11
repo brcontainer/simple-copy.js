@@ -6,6 +6,9 @@
  * Released under the MIT license
  */
 
+type CopyableElement = HTMLElement | MathMLElement | SVGElement;
+type Callback = (value: string) => Promise<void>;
+
 const elementSelectors = [
     'data-simple-copy',
     'data-simple-copy-text',
@@ -17,14 +20,15 @@ const matchSelector = `[${elementSelectors.join('],[')}]`;
 /**
  * Resolve element from selector or return a element
  *
- * @param {HTMLElement|MathMLElement|SVGElement|string} elementOrSelector - The HTML or SVG element to be copied.
+ * @param elementOrSelector - The HTML, MathML or SVG element to be copied.
  */
-function resolveElement(elementOrSelector) {
+function resolveElement(elementOrSelector: CopyableElement | string): CopyableElement
+{
     if (typeof elementOrSelector !== 'string') {
         return elementOrSelector;
     }
 
-    const element = document.querySelector(elementOrSelector);
+    const element = document.querySelector<CopyableElement>(elementOrSelector);
 
     if (element === null) {
         throw new Error(`Element not found for selector: ${elementOrSelector}`);
@@ -36,10 +40,11 @@ function resolveElement(elementOrSelector) {
 /**
  * Writes content (string or Blob) to the clipboard with a specific MIME type.
  *
- * @param {Blob|string|number} source - String, text, or binary to copy
- * @param {string} [type] - Changes the MIME type (if omitted, the default will be the Blob type, or text/plain for others).
+ * @param source - String, text, or binary to copy
+ * @param [type] - Changes the MIME type (if omitted, the default will be the Blob type, or text/plain for others).
  */
-async function write(source, type) {
+async function write(source: Blob | string | number, type?: string): Promise<void>
+{
     if (!navigator.clipboard || !navigator.clipboard.writeText) {
         throw new Error('Clipboard API is not supported');
     }
@@ -47,12 +52,14 @@ async function write(source, type) {
     if (source instanceof Blob) {
         if (!type) {
             type = source.type;
+
             if (!type) {
                 throw new Error('Blob type is missing');
             }
         }
     } else {
-        type = type !== null && type !== void 0 ? type : 'text/plain';
+        type = type ?? 'text/plain';
+
         if (typeof source !== 'string') {
             source = String(source);
         }
@@ -84,20 +91,21 @@ async function write(source, type) {
 /**
  * Copies the outerHTML of the provided HTML, MathML or SVG element.
  *
- * @param {HTMLElement|MathMLElement|SVGElement|string} elementOrSelector - Element or Seletor.
+ * @param elementOrSelector - Element or Seletor.
  */
-async function copy(elementOrSelector) {
+async function copy(elementOrSelector: CopyableElement | string): Promise<void>
+{
     const element = resolveElement(elementOrSelector);
     return write(element.outerHTML, 'text/html');
 }
 
 /**
  * Copies only the textContent (visible text) of the provided HTML, MathML or SVG element.
- * Note: for input elements copies value entry
  *
- * @param {HTMLElement|MathMLElement|SVGElement|string} elementOrSelector - Element or Seletor.
+ * @param elementOrSelector - Element or Seletor.
  */
-async function copyText(elementOrSelector) {
+async function copyText(elementOrSelector: CopyableElement | string): Promise<void>
+{
     const element = resolveElement(elementOrSelector);
     const dataset = element.dataset;
 
@@ -116,8 +124,7 @@ async function copyText(elementOrSelector) {
     ) {
         content = element.value;
     } else {
-        content = element.textContent;
-        content = content !== null && content !== void 0 ? content : '';
+        content = element.textContent ?? '';
     }
 
     output += content;
@@ -132,12 +139,12 @@ async function copyText(elementOrSelector) {
 /**
  * Delegate click events for use `data-simple-copy-*` attributes
  *
- * @param {string} entry
- * @param {HTMLElement|MathMLElement|SVGElement} node
- * @param {string} attr
- * @param {Function} callback
+ * @param entry
+ * @param node
+ * @param attr
+ * @param callback
  */
-function trigger(entry, node, attr, callback) {
+function trigger(entry: string, node: CopyableElement, attr: string, callback: Callback) {
     if (entry) {
         callback(entry);
     } else {
@@ -148,9 +155,10 @@ function trigger(entry, node, attr, callback) {
 /**
  * Delegate click events for use `data-simple-copy-*` attributes
  *
- * @param {MouseEvent} event
+ * @param event
  */
-function setupDom(event) {
+function setupDom(event: MouseEvent): void
+{
     if (event.button !== 0) return;
 
     if (
@@ -158,10 +166,10 @@ function setupDom(event) {
         event.target instanceof MathMLElement ||
         event.target instanceof SVGElement
     ) {
-        let element = event.target;
+        let element: CopyableElement | null = event.target;
 
         if (element) {
-            element = element.closest(matchSelector);
+            element = element.closest<CopyableElement>(matchSelector);
         }
 
         if (!element) return;

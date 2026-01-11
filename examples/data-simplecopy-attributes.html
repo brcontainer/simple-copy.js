@@ -29,29 +29,20 @@
     </div>
 
     <div class="foobar">
-        <button data-simplecopy-target=".foo">Copy from .foo</button>
-        <button data-simplecopy-target="body > .bar">Copy from body > .bar</button>
-        <button data-simplecopy-target="[class~=baz] textarea">Copy from [class~=baz] textarea</button>
+        <button data-simple-copy=".foo">Copy from .foo</button>
+        <button data-simple-copy="body > .bar">Copy from body > .bar</button>
+        <button data-simple-copy="[class~=baz] textarea">Copy from [class~=baz] textarea</button>
 
         <code class="source">
-        <p>&lt;button data-simplecopy-target="selector">...&lt;button></p>
+        <p>&lt;button data-simple-copy="selector">...&lt;button></p>
         </code>
         <hr>
 
-        <button data-simplecopy-target=".foo" data-simplecopy-text="true">Copy from .foo (without HTML format)</button>
-        <button data-simplecopy-target="body > .bar" data-simplecopy-text="true">Copy from .bar (without HTML format)</button>
+        <button data-simple-copy=".foo" data-simplecopy-text="true">Copy from .foo (without HTML format)</button>
+        <button data-simple-copy-text="body > .bar">Copy from .bar (without HTML format)</button>
 
         <code class="source">
-        <p>&lt;button data-simplecopy-target="selector" data-simplecopy-text="true">...&lt;button></p>
-        </code>
-        <hr>
-
-        <button data-simplecopy-target=".foo" data-simplecopy-select="true">Select from .foo</button>
-        <button data-simplecopy-target="body > .bar" data-simplecopy-select="true">Select from body > .bar</button>
-        <button data-simplecopy-target="[class~=baz] textarea" data-simplecopy-select="true">Select from [class~=baz] textarea</button>
-
-        <code class="source">
-        <p>&lt;button data-simplecopy-target="selector" data-simplecopy-select="true">...&lt;button></p>
+        <p>&lt;button data-simple-copy-text="selector">...&lt;button></p>
         </code>
     </div>
 
@@ -60,6 +51,6 @@
     </div>
 
     <link rel="stylesheet" type="text/css" href="example.css">
-    <script type="text/javascript" src="../simple-copy.min.js"></script>
+    <script type="text/javascript" src="../dist/simple-copy.min.js"></script>
 </body>
 </html>

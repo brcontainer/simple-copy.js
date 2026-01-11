@@ -22,11 +22,11 @@
         </code>
         <hr>
 
-        <button class="select-btn">Select</button>
+        <button class="copy-text-btn">Copy text</button>
 
         <code class="source">
-        <p>var element = d.querySelector(".foo");</p>
-        <p>SimpleCopy.select(element);</p>
+        <p>var element = document.getElementById("foo");</p>
+        <p>SimpleCopy.copyText(element);</p>
         </code>
     </div>
 
@@ -35,19 +35,19 @@
     </div>
 
     <link rel="stylesheet" type="text/css" href="example.css">
-    <script type="text/javascript" src="../simple-copy.min.js"></script>
+    <script type="text/javascript" src="../dist/simple-copy.min.js"></script>
     <script type="text/javascript">
     (function (d) {
-        d.querySelector(".copy-btn").onclick = function () {
+        d.getElementById("copy-btn").onclick = function () {
             var doc = document.getElementById("iframe").contentWindow.document;
             var element = doc.querySelector(".foo");
             SimpleCopy.copy(element);
         };
 
-        d.querySelector(".select-btn").onclick = function () {
+        d.getElementById("copy-text-btn").onclick = function () {
             var doc = document.getElementById("iframe").contentWindow.document;
             var element = doc.querySelector(".foo");
-            SimpleCopy.select(element);
+            SimpleCopy.copyText(element);
         };
     })(document);
     </script>

@@ -1,227 +1,145 @@
-# simple-copy.js
+Copy DOM elements, textarea content, or form field values to the clipboard.
+Only **1.8kB minified**.
 
-Copy DOM, textarea or fields values to clipboard, no Flash, only 2.3kB minified (1.14kB gzipped).
+## Installation
 
-## Setup
-
-Include lib
-
-```html
-<script src="simple-copy.min.js"></script>
-```
-
-Or use CDN:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/simple-copy.js@0.5/simple-copy.min.js"></script>
-```
-
-Install using NPM:
+Install via NPM:
 
 ```bash
-npm i simple-copy.js
+npm install simple-copy.js
 ```
 
-Import:
+Import in your project:
 
 ```javascript
-const SimpleCopy = require('simple-copy.js');
+import SimpleCopy from 'simple-copy.js';
 ```
 
-Import ES6 (and "libs" like Angular/Vue-cli):
+## Browser usage
 
-```javascript
-import SimpleCopy from 'simple-copy.js'
+Include the script after downloading the repository:
+
+```html
+<script src="dist/simple-copy.min.js"></script>
 ```
 
-RequireJS:
+Or use a CDN:
 
-```javascript
-requirejs(['folder/foo/bar/simple-copy'], function (SimpleCopy) {
-    ...
-});
+```html
+<script src="https://cdn.jsdelivr.net/npm/simple-copy.js@2.0/dist/simple-copy.min.js"></script>
 ```
 
-# Usage
+## Usage
 
-Copying content from a element using selector:
+### Copy HTML from an element
+
+Using a selector:
 
 ```javascript
-SimpleCopy.copy("<selector>");
+SimpleCopy.copy('<selector>');
 ```
 
-Copying text from a element using selector:
+Using a DOM element:
 
 ```javascript
-SimpleCopy.copy("<selector>", { "text": true });
-```
-
-Copying entire element using selector:
-
-```javascript
-SimpleCopy.copy("<selector>", { "node": true });
-```
-
-Copying content from a element using selector:
-
-```javascript
-var element = document.querySelector(".foobar");
+const element = document.querySelector('.foobar');
 SimpleCopy.copy(element);
 ```
 
-Copying text from a element using selector:
+### Copy text from an element or form field
+
+Using a selector:
 
 ```javascript
-var element = document.getElementById("idelement");
-SimpleCopy.copy(element, { "text": true });
+SimpleCopy.copyText('<selector>');
 ```
 
-Copying entire element:
+Using a DOM element:
 
 ```javascript
-var element = document.getElementsByClassName("<class>");
-SimpleCopy.copy(element[0], { "node": true });
+const element = document.getElementById('idelement');
+SimpleCopy.copyText(element);
 ```
 
-Select text in a element using selector:
+This method automatically handles:
+
+* `textContent` for regular elements
+* `value` for inputs, textareas, and selects
+
+### Write arbitrary content to the clipboard
+
+Write plain text:
 
 ```javascript
-SimpleCopy.select("<selector>");
+SimpleCopy.write('Hello, world!');
 ```
 
-Select content in a element:
+Write text with a custom MIME type:
 
 ```javascript
-var element = document.querySelector(".foobar");
-SimpleCopy.select(element);
+const data = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="50"/>
+</svg>`;
+
+try {
+    SimpleCopy.write(data, 'image/svg+xml');
+} catch (err) {
+    console.error(err.name, err.message);
+}
 ```
 
-Select entire node:
+Write a `Blob`:
 
 ```javascript
-var element = document.querySelector(".foobar");
-SimpleCopy.select(element, { "node": true });
+const obj = { hello: 'world' };
+const blob = new Blob([JSON.stringify(obj, null, 2)], {
+    type: 'application/json',
+});
+
+try {
+    SimpleCopy.write(blob);
+} catch (err) {
+    console.error(err.name, err.message);
+}
 ```
 
-Set text in clipboard:
+## Using HTML data attributes
 
-```javascript
-SimpleCopy.data("Hello, world!");
-```
+You can delegate copy actions directly from the DOM using `data-*` attributes.
 
-Copy content from element defined in data attributes:
+Copy an element as HTML:
 
 ```html
-<button data-simplecopy-target="<selector>">Copy</button>
+<button data-simple-copy="<selector>">Copy</button>
 ```
 
-Copy entire element defined in data attributes:
+Copy only the text content:
 
 ```html
-<button data-simplecopy-target="<selector>" data-simplecopy-node="true">Copy</button>
+<button data-simple-copy-text="<selector>">Copy</button>
 ```
 
-Select content from element defined in data attributes:
+Write static text to the clipboard:
 
 ```html
-<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Select text</button>
-```
-
-Copy html content without format:
-
-```html
-<button data-simplecopy-target="<selector>" data-simplecopy-text="true">Copy</button>
-```
-
-Set text in clipboard by data attribute:
-
-```html
-<button data-simplecopy-data="Hello, world!">Copy text</button>
-```
-
-## Copying values from select[multiple]
-
-Using API for copy multiple values in `<select multiple></select>`:
-
-```javascript
-SimpleCopy.copy("<selector>", { "multiple": "," });
-```
-
-In example comma is used to join multiple values, returning `foo,bar,baz`, if change to:
-
-```javascript
-SimpleCopy.copy("<selector>", { "multiple": "|" });
-```
-
-Returns: `foo|bar|baz`
-
-You can use data attribute for copy multiple values in `<select multiple></select>`, example:
-
-```html
-<select multiple class="foobar">
-    <option value="foo">Foo</option>
-    <option value="Bar" multiple>Bar</option>
-    <option value="Baz">Baz</option>
-    <option value="fooled you!" multiple>Bazinga</option>
-</select>
-
-<button
-    data-simplecopy-target=".foobar"
-    data-simplecopy-multiple=","
->Copy</button>
+<button data-simple-copy-write="Hello, world!">Copy text</button>
 ```
 
 ## API
 
-Method | Description
---- | ---
-`SimpleCopy.copy(target[, options])` | Copy the contents of an HTML element
-`SimpleCopy.select(target[, options]);` | Select the contents of an HTML element
-`SimpleCopy.data(text);` | Set plain text in clipboard
+| Method                          | Description                                           |
+| ------------------------------- | ----------------------------------------------------- |
+| `SimpleCopy.copy(selector)`     | Finds an element and copies its HTML to the clipboard |
+| `SimpleCopy.copy(element)`      | Copies the element HTML to the clipboard              |
+| `SimpleCopy.copyText(selector)` | Finds an element and copies its text content          |
+| `SimpleCopy.copyText(element)`  | Copies the element text content                       |
+| `SimpleCopy.write(text)`        | Writes plain text to the clipboard                    |
+| `SimpleCopy.write(data, type)`  | Writes text or Blob with a specific MIME type         |
 
-### Options
+## HTML5 data attributes
 
-In `SimpleCopy.copy` and `SimpleCopy.select` you can define behavior, example:
-
-```javascript
-SimpleCopy.copy(target, {
-    "text": true
-});
-```
-
-Property | type | default | description
---- | --- | --- | ---
-`text:` | `bool` | `false` | If `true` copy node without markup (only text). Available only `SimpleCopy.copy`
-`node:` | `bool` | `false` | If `true` copy entire node, if `false` copy node contents. Available in `SimpleCopy.copy` and `SimpleCopy.select`
-`multiple:` | `string` | `null` | This property is only used when copy `<select multiple>` only, if `multiple` is not defined only first option selected is setted in clipboard, if define a "separator" like `;` is setted in clipboard something like this: `foo;bar;baz` (for each selected option). Available only `SimpleCopy.copy`
-
-## HTML5 data attribute
-
-Property | equivalent | example | description
---- | --- | --- | ---
-`data-simplecopy-target` | - | `<button data-simplecopy-target="<selector>">Copy</button>` | -
-`data-simplecopy-select` | `SimpleCopy.select(<selector>)` | `<button data-simplecopy-target="<selector>" data-simplecopy-select="true">Copy</button>` | -
-`data-simplecopy-text` | `text:` | `<button data-simplecopy-target="<selector>" data-simplecopy-text="true">Copy</button>` | -
-`data-simplecopy-node` | `node:` | `<button data-simplecopy-target="<selector>" data-simplecopy-node="true">Copy</button>` | -
-`data-simplecopy-multiple` | `multiple:` | `<button data-simplecopy-target="<selector>" data-simplecopy-multiple=";">Copy</button>` | -
-`data-simplecopy-data` | `SimpleCopy.data(<text>)` | `<button data-simplecopy-data="<text>">Copy</button>` | -
-`simple-copy-ignore` | - | `<element data-simplecopy-ignore="true">.....</element>` | Ignore element if parents elements has `data-simplecopy-text` or if uses `SimpleCopy.copy(target, { "text": true });`
-
-## jQuery clipboard API
-
-Method | Equivalent |
---- | ---
-`$("<selector>").simpleCopy("copy")` | `SimpleCopy.copy("<selector>")`
-`$(element).simpleCopy("copy")` | `SimpleCopy.copy(element)`
-`$("<selector>").simpleCopy("copy", { "text": true })` | `SimpleCopy.copy("<selector>", { "text": true })`
-`$("<selector>").simpleCopy("copy", { "node": true })` | `SimpleCopy.copy("<selector>", { "node": true })`
-`$("<selector>").simpleCopy("copy", { "multiple": ";" })` | `SimpleCopy.copy("<selector>", { "multiple": ";" })`
-`$("<selector>").simpleCopy("select")` | `SimpleCopy.select("<selector>")`
-`$(element).simpleCopy("select")` | `SimpleCopy.select(element)`
-`$("<selector>").simpleCopy("select", { "node": true })` | `SimpleCopy.select("<selector>", { "node": true })`
-
-# Browser Support
-
-![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![IE9+](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png)
---- | --- | --- | --- | --- | ---
-Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 10+ ✔ | 9+ ✔
+| Attribute                | Equivalent API call             | Example                                                    |
+| ------------------------ | ------------------------------- | ---------------------------------------------------------- |
+| `data-simple-copy`       | `SimpleCopy.copy(selector)`     | `<button data-simple-copy="<selector>">Copy</button>`      |
+| `data-simple-copy-text`  | `SimpleCopy.copyText(selector)` | `<button data-simple-copy-text="<selector>">Copy</button>` |
+| `data-simple-copy-write` | `SimpleCopy.write(text)`        | `<button data-simple-copy-write="Hello">Copy</button>`     |
