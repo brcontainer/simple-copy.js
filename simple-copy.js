@@ -1,7 +1,7 @@
 /*
- * simple-copy.js 0.5.4
+ * simple-copy.js 1.0.0
  *
- * Copyright (c) 2024 Guilherme Nascimento (brcontainer@yahoo.com.br)
+ * Copyright (c) 2026 Guilherme Nascimento (brcontainer@yahoo.com.br)
  *
  * Released under the MIT license
  */
@@ -9,7 +9,7 @@
 (function (u) {
     "use strict";
 
-    var w = typeof window !== "undefined" ? window : {},
+    var w = window === u ? window : {},
         d = w.document || {},
         $ = w.jQuery,
         tmpBody = d.implementation.createHTMLDocument("").body,
@@ -19,7 +19,7 @@
     function isInvisible(el)
     {
         return (
-            el.hasAttribute("simple-copy-ignore") !== "true" &&
+            el.getAttribute("simple-copy-ignore") !== "true" &&
             !el.offsetWidth &&
             !el.offsetHeight &&
             !el.getClientRects().length
@@ -196,13 +196,13 @@
 
     if ($ && $.extend) {
         $.fn.simpleCopy = function (opts) {
-            var target = this[0];
+            var action, target = this[0];
 
             if (!target) return;
 
             if (!opts) opts = {};
 
-            if (opts.type === u) action = "copy";
+            var action = opts.type === u ? "copy" : opts.type;
 
             if (action === "copy" || action === "select") main[action](target, opts);
         };
